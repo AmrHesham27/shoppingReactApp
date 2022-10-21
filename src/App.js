@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+// react
+import { Routes, Route } from "react-router-dom";
+import React, { Suspense } from "react";
+
+// css & bootsrap
+import "bootstrap/dist/css/bootstrap.min.css";
+import "swiper/css/bundle";
+import Spinner from "react-bootstrap/Spinner";
+
+// pages
+const Home = React.lazy(() => import("./pages/Home/Home"));
+const About = React.lazy(() => import("./pages/About/About"));
+const ContactUs = React.lazy(() => import("./pages/ContactUs/ContactUs"));
+
+const SpinnerPage = () => {
+  return (
+    <div
+      style={{ width: "100vw", height: "100vh" }}
+      className="d-flex justify-content-center align-items-center"
+    >
+      <Spinner animation="grow" variant="dark" className="m-3" />
+      <Spinner animation="grow" variant="dark" className="m-3" />
+      <Spinner animation="grow" variant="dark" className="m-3" />
+    </div>
+  );
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense fallback={<SpinnerPage />}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<ContactUs />} />
+      </Routes>
+    </Suspense>
   );
 }
 

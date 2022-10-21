@@ -1,0 +1,28 @@
+.myCard:hover .productOptions {
+  opacity: 1;
+  visibility: visible;
+}
+.myCard:hover img {
+  transition: 0.4s ease;
+  transform: scale(1.08);
+}
+
+.imgContainer {
+  overflow: hidden;
+  position: relative;
+}
+.imgContainer .productOptions {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 100ms, opacity 100ms;
+  z-index: 5;
+  background-color: rgba(255, 255, 255, 0.65);
+}
+.imgContainer .productOptions button {
+  border: none;
+  background-color: transparent;
+}/*# sourceMappingURL=styles.module.css.map */
