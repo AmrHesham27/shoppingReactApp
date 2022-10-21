@@ -11,6 +11,7 @@ function SlidesPerView(props) {
   ));
 
   const [slidesNumber, setSlidesNumber] = useState(5);
+  const [spaceBetween, setSpaceBetween] = useState(20);
 
   useEffect(() => {
     function handleWindowResize() {
@@ -18,7 +19,10 @@ function SlidesPerView(props) {
       if (width > 1020) setSlidesNumber(5);
       else if (width <= 1020 && width > 770) setSlidesNumber(4);
       else if (width <= 770 && width > 500) setSlidesNumber(3);
-      else setSlidesNumber(2);
+      else {
+        setSlidesNumber(2);
+        setSpaceBetween(10);
+      }
     }
 
     function getWindowWidth() {
@@ -42,7 +46,7 @@ function SlidesPerView(props) {
       className={styles.mySwiper}
       slidesPerView={slidesNumber}
       loop={true}
-      spaceBetween={20}
+      spaceBetween={spaceBetween}
     >
       {SwiperSlides}
     </Swiper>

@@ -15,7 +15,7 @@ function SliderNavbar() {
         <div className={styles.header}>
           <h4 className="mb-0 fw-bold">
             <a href="/">
-              <img src={logo} alt="logo image" />
+              <img src={logo} alt="logo" />
             </a>
           </h4>
           <FontAwesomeIcon

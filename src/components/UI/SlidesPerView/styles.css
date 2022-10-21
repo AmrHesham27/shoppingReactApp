@@ -2,6 +2,7 @@
 .swiper {
   width: 80vw !important;
   height: 100%;
+  padding: 5px;
 }
 
 .swiper-slide {
@@ -38,4 +39,14 @@
 .swiper-button-prev {
   left: 0 !important;
   right: auto !important;
+}
+
+@media screen and (max-width: 600px) {
+  .swiper {
+    width: 90vw !important;
+  }
+  .swiper .h5,
+.swiper .card-text {
+    font-size: 1rem !important;
+  }
 }/*# sourceMappingURL=styles.css.map */

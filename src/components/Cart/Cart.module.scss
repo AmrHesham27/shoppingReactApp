@@ -3,6 +3,7 @@
   top: 0;
   right: 0;
   width: 400px;
+  max-width: 100vw;
   height: 100%;
   background-color: white;
   z-index: 30;
@@ -45,7 +46,8 @@
 }
 
 .footer {
-  width: 383px;
+  max-width: 100vw;
+  width: 100%;
   padding: 1rem;
   border-top: 1px solid #e1e1e1;
   position: fixed;
