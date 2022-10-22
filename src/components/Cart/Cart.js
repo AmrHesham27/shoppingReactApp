@@ -40,9 +40,8 @@ function Cart() {
           <FontAwesomeIcon icon={faClose} size={"2x"} onClick={ctx.hideCart} />
         </div>
 
-        <div className={styles.body}>{cartItemsElements}</div>
-
-        <div className={`${styles.footer} p-3`}>
+        <div className={styles.body}>
+          {cartItemsElements}
           <button
             type="button"
             className={`btn btn-lg btn-dark ${styles["btn-ecomm"]} px-5 py-3`}

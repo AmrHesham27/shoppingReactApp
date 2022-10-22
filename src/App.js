@@ -11,6 +11,8 @@ import Spinner from "react-bootstrap/Spinner";
 const Home = React.lazy(() => import("./pages/Home/Home"));
 const About = React.lazy(() => import("./pages/About/About"));
 const ContactUs = React.lazy(() => import("./pages/ContactUs/ContactUs"));
+const LoginPage = React.lazy(() => import("./pages/Login/Login"));
+const RegisterPage = React.lazy(() => import("./pages/Register/Register"));
 
 const SpinnerPage = () => {
   return (
@@ -32,6 +34,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </Suspense>
   );
