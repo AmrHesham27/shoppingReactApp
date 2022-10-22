@@ -45,6 +45,16 @@
   }
 }
 
+.footer {
+  max-width: 100vw;
+  width: 100%;
+  padding: 1rem;
+  border-top: 1px solid #e1e1e1;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+}
+
 .btn-ecomm {
   font-size: 14px;
   text-transform: uppercase;
@@ -52,9 +62,6 @@
   padding: 0.5rem 1.5rem;
   border-radius: 0;
   z-index: 6;
-  width: calc(100% - 2rem);
+  width: 100%;
   text-align: center;
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
 }
