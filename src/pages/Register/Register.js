@@ -3,7 +3,7 @@ import Layout from "../../components/layout/Layout/Layout";
 import styles from "./styles.module.css";
 import { useRef } from "react";
 function Register() {
-  const API_KEY = process.env["API_KEY"];
+  const API_KEY = process.env.API_KEY;
   console.log(API_KEY);
 
   const emailInputRef = useRef();
