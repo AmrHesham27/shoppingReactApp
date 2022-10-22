@@ -42,10 +42,10 @@ function Cart() {
 
         <div className={styles.body}>{cartItemsElements}</div>
 
-        <div className={`${styles.footer} p-3`}>
+        <div className={`${styles.footer}`}>
           <button
             type="button"
-            className={`btn btn-lg btn-dark ${styles["btn-ecomm"]} px-5 py-3`}
+            className={`btn btn-lg btn-dark ${styles["btn-ecomm"]} py-3`}
           >
             Checkout
           </button>
