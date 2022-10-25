@@ -11,24 +11,24 @@ header {
   box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
   background-color: white;
 
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    height: 100%;
+
+    &:hover {
+      color: black;
+    }
+  }
+
   nav {
     margin: 0 5vw;
     display: flex;
     flex-direction: row;
     height: inherit;
-
-    a {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: black;
-      width: 100%;
-      height: 100%;
-
-      &:hover {
-        color: black;
-      }
-    }
 
     .bars {
       display: flex;
@@ -98,6 +98,12 @@ header {
 
   svg {
     cursor: pointer;
+  }
+
+  .logoutButton {
+    background-color: white;
+    border: none;
+    font-weight: 600;
   }
 }
 

@@ -3,9 +3,9 @@ import styles from "./Story.module.css";
 
 function Story() {
   return (
-    <section class={`row g-4 section-padding ${styles.section}`}>
-      <div class="col-12 col-xl-6">
-        <h3 class="fw-bold">Our Story</h3>
+    <section className={`row g-4 section-padding ${styles.section}`}>
+      <div className="col-12 col-xl-6">
+        <h3 className="fw-bold">Our Story</h3>
         <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -27,8 +27,8 @@ function Story() {
           Hampden-Sydney College.
         </p>
       </div>
-      <div class="col-12 col-xl-6">
-        <img src={image} class="img-fluid" alt="" />
+      <div className="col-12 col-xl-6">
+        <img src={image} className="img-fluid" alt="" />
       </div>
     </section>
   );

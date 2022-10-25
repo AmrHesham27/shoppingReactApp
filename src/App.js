@@ -1,16 +1,24 @@
 // react
-import { Routes, Route } from "react-router-dom";
-import React, { Suspense } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import React, { Suspense, useCallback, useEffect } from "react";
+
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "./redux/authSlice";
 
 // css & bootsrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import "swiper/css/bundle";
 import Spinner from "react-bootstrap/Spinner";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 // pages
 const Home = React.lazy(() => import("./pages/Home/Home"));
 const About = React.lazy(() => import("./pages/About/About"));
 const ContactUs = React.lazy(() => import("./pages/ContactUs/ContactUs"));
+const Register = React.lazy(() => import("./pages/Register/Register"));
+const Login = React.lazy(() => import("./pages/Login/Login"));
+const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
 
 const SpinnerPage = () => {
   return (
@@ -26,12 +34,55 @@ const SpinnerPage = () => {
 };
 
 function App() {
+  const dispatch = useCallback(useDispatch());
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  const NotLoggedInRoute = (page, path) => {
+    if (isLoggedIn) {
+      return (
+        <Route path={path} element={<Navigate to="/dashboard" replace />} />
+      );
+    }
+    return <Route path={path} element={page} />;
+  };
+
+  const ProtectedRoute = (page, path) => {
+    if (!isLoggedIn) {
+      return <Route path={path} element={<Navigate to="/login" replace />} />;
+    }
+    return <Route path={path} element={page} />;
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetch("http://localhost:4000/me", {
+        method: "GET",
+        headers: new Headers({
+          Authorization: `${token}`,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch(authActions.login(data["data"]));
+        });
+    }
+  }, [dispatch]);
+
   return (
     <Suspense fallback={<SpinnerPage />}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactUs />} />
+
+        {NotLoggedInRoute(<Login />, "/login")}
+        {NotLoggedInRoute(<Register />, "/register")}
+
+        {ProtectedRoute(<Dashboard />, "/dashboard")}
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );

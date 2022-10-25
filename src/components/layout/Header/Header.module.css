@@ -11,13 +11,7 @@ header {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
   background-color: white;
 }
-header nav {
-  margin: 0 5vw;
-  display: flex;
-  flex-direction: row;
-  height: inherit;
-}
-header nav a {
+header a {
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -25,8 +19,14 @@ header nav a {
   width: 100%;
   height: 100%;
 }
-header nav a:hover {
+header a:hover {
   color: black;
+}
+header nav {
+  margin: 0 5vw;
+  display: flex;
+  flex-direction: row;
+  height: inherit;
 }
 header nav .bars {
   display: flex;
@@ -87,6 +87,11 @@ header .icons .counter {
 }
 header svg {
   cursor: pointer;
+}
+header .logoutButton {
+  background-color: white;
+  border: none;
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 768px) {

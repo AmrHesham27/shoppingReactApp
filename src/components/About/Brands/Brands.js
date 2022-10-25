@@ -22,12 +22,12 @@ function Brands() {
     image8,
     image9,
     image10,
-  ].map((img) => (
-    <div class="col">
-      <div class={`p-3 border rounded brand-box ${styles.card}`}>
-        <div class="d-flex align-items-center">
-          <a href="javascript:;">
-            <img src={img} class="img-fluid" alt="" />
+  ].map((img, index) => (
+    <div className="col" key={index}>
+      <div className={`p-3 border rounded brand-box ${styles.card}`}>
+        <div className="d-flex align-items-center">
+          <a href="/">
+            <img src={img} className="img-fluid" alt="" />
           </a>
         </div>
       </div>
@@ -35,13 +35,13 @@ function Brands() {
   ));
   return (
     <section className="section-padding section">
-      <div class="separator section-padding">
-        <div class="line"></div>
-        <h3 class="mb-0 h3 fw-bold">Shop By Brands</h3>
-        <div class="line"></div>
+      <div className="separator section-padding">
+        <div className="line"></div>
+        <h3 className="mb-0 h3 fw-bold">Shop By Brands</h3>
+        <div className="line"></div>
       </div>
-      <div class="brands">
-        <div class="row row-cols-2 row-cols-lg-5 g-4">{brands}</div>
+      <div className="brands">
+        <div className="row row-cols-2 row-cols-lg-5 g-4">{brands}</div>
       </div>
     </section>
   );
