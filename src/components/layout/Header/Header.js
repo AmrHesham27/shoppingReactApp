@@ -12,8 +12,8 @@ import {
 
 // react and context
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import AppContext from "../../../context/app-context";
+import { useNavigate } from "react-router-dom";
 
 // redux
 import { useSelector, useDispatch } from "react-redux";

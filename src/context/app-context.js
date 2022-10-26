@@ -8,6 +8,9 @@ const AppContext = React.createContext({
   showNavbar: () => {},
   hideNavbar: () => {},
   hideAll: () => {},
+  message: null,
+  setMessage: (message) => {},
+  clearMessage: () => {},
 });
 
 export default AppContext;

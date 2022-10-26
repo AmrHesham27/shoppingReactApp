@@ -1,25 +1,23 @@
 // React and components
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useRef } from "react";
 import Layout from "../../components/layout/Layout/Layout";
+import { useContext } from "react";
+import AppContext from "../../context/app-context";
 
 // css
 import styles from "./styles.module.css";
 
 // redux
 import { authActions } from "../../redux/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function Login() {
-  let navigate = useNavigate();
+  const ctx = useContext(AppContext);
+
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,26 +31,15 @@ function Login() {
         password: passwordInputRef.current.value,
       }),
     });
-    response
-      .json()
-      .then((data) => {
-        localStorage.setItem("token", data["data"]["token"]);
-        dispatch(authActions.login(data["data"]["user"]));
-      })
-      .catch((error) => {
-        setError(error);
+    response.json().then((data) => {
+      localStorage.setItem("token", data["data"]["token"]);
+      ctx.setMessage({
+        text: "You were loggedIn successfully",
+        type: "success",
       });
+      dispatch(authActions.login(data["data"]["user"]));
+    });
   };
-
-  useEffect(() => {
-    const sendUserToDashboard = () => {
-      if (isLoggedIn) {
-        navigate("/dashboard");
-      }
-    };
-
-    return sendUserToDashboard();
-  }, [isLoggedIn]);
 
   return (
     <>

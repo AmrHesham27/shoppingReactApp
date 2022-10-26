@@ -1,6 +1,6 @@
 // react
 import { Routes, Route, Navigate } from "react-router-dom";
-import React, { Suspense, useCallback, useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 
 // redux
 import { useSelector, useDispatch } from "react-redux";
@@ -9,8 +9,8 @@ import { authActions } from "./redux/authSlice";
 // css & bootsrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import "swiper/css/bundle";
+import "react-toastify/dist/ReactToastify.css";
 import Spinner from "react-bootstrap/Spinner";
-import Dashboard from "./pages/Dashboard/Dashboard";
 
 // pages
 const Home = React.lazy(() => import("./pages/Home/Home"));
@@ -19,6 +19,7 @@ const ContactUs = React.lazy(() => import("./pages/ContactUs/ContactUs"));
 const Register = React.lazy(() => import("./pages/Register/Register"));
 const Login = React.lazy(() => import("./pages/Login/Login"));
 const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
+const Dashboard = React.lazy(() => import("./pages/Dashboard/Dashboard"));
 
 const SpinnerPage = () => {
   return (
@@ -34,7 +35,7 @@ const SpinnerPage = () => {
 };
 
 function App() {
-  const dispatch = useCallback(useDispatch());
+  const dispatch = useDispatch();
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 

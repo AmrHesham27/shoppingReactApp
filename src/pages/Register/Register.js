@@ -1,14 +1,17 @@
 import React from "react";
 import Layout from "../../components/layout/Layout/Layout";
 import styles from "./styles.module.css";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import { useContext } from "react";
+import AppContext from "../../context/app-context";
+import Message from "../../components/UI/Message/Message";
+
 function Register() {
+  const ctx = useContext(AppContext);
+
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const confirmPasswordInputRef = useRef();
-
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,14 +27,12 @@ function Register() {
         confirmedPassword: confirmPasswordInputRef.current.value,
       }),
     });
-    response
-      .json()
-      .then((data) => {
-        console.log("registered successfully");
-      })
-      .catch((error) => {
-        setError(error);
+    response.json().then((data) => {
+      ctx.setMessage({
+        text: "You were registered successfully",
+        type: "success",
       });
+    });
   };
 
   return (
@@ -92,6 +93,7 @@ function Register() {
             </p>
           </div>
         </form>
+        <Message />
       </Layout>
     </>
   );

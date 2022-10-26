@@ -1,4 +1,5 @@
 import Layout from "../../components/layout/Layout/Layout";
+import Message from "../../components/UI/Message/Message";
 
 function Dashboard() {
   return (
@@ -7,6 +8,7 @@ function Dashboard() {
         <div>Dashboard</div>
         <div>This page is under developement</div>
       </div>
+      <Message />
     </Layout>
   );
 }
