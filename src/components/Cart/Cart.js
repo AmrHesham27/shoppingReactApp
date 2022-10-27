@@ -19,7 +19,14 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 function Cart() {
   const ctx = useContext(AppContext);
 
-  const { items: cartItemsObject } = useSelector((state) => state.cart);
+  const { items: cartItemsObject, itemsNumber: cartItemsNumber } = useSelector(
+    (state) => state.cart
+  );
+  let totalPrice = 0;
+  if (cartItemsNumber)
+    Object.values(cartItemsObject).forEach(
+      (item) => (totalPrice += item.qty * item.price)
+    );
 
   const [cartItemsElements, setCartItemsElements] = useState([]);
 
@@ -60,7 +67,8 @@ function Cart() {
             type="button"
             className={`btn btn-lg btn-dark ${styles["btn-ecomm"]} py-3`}
           >
-            Checkout
+            <span className="mx-3">Checkout</span>
+            {totalPrice && `$${totalPrice}`}
           </button>
         </div>
       </div>

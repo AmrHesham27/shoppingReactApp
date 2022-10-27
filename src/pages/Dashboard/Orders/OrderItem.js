@@ -1,5 +1,5 @@
 import { Card } from "react-bootstrap";
-import styles from "./OrderItem.module.css";
+import styles from "./index.module.css";
 
 function OrderItem(props) {
   return (
@@ -7,7 +7,12 @@ function OrderItem(props) {
       <Card.Body>
         <div className="d-flex flex-column flex-xl-row gap-3">
           <div>
-            <img src={props.img} width="120" alt="" />
+            <Card.Img
+              src={props.img}
+              style={{ width: "120px" }}
+              alt=""
+              className="rounded-0"
+            />
           </div>
           <div className="flex-grow-1">
             <h5 className="fw-bold mb-1">{props.name}</h5>

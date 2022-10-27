@@ -2,6 +2,8 @@ import Layout from "../../../components/layout/Layout/Layout";
 import { Row, Col, Container } from "react-bootstrap";
 import OrderItem from "./OrderItem";
 import image1 from "../../../assets/images/FaeturedProducts/01.webp";
+//import styles from "./index.module.css";
+import Navbar from "./Navbar";
 
 function Orders() {
   const orders = [
@@ -59,73 +61,7 @@ function Orders() {
             </span>
           </div>
           <Row>
-            <div className="col-12 col-xl-3 filter-column">
-              <nav className="navbar navbar-expand-xl flex-wrap p-0">
-                <div
-                  className="offcanvas offcanvas-start"
-                  id="offcanvasNavbarFilter"
-                  aria-labelledby="offcanvasNavbarFilterLabel"
-                >
-                  <div className="offcanvas-header">
-                    <h5
-                      className="offcanvas-title mb-0 fw-bold text-uppercase"
-                      id="offcanvasNavbarFilterLabel"
-                    >
-                      Account
-                    </h5>
-                    <button
-                      type="button"
-                      className="btn-close text-reset"
-                      data-bs-dismiss="offcanvas"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div className="offcanvas-body account-menu">
-                    <div className="list-group w-100 rounded-0">
-                      <a
-                        href="account-dashboard.html"
-                        className="list-group-item"
-                      >
-                        <i className="bi bi-house-door me-2"></i>Dashboard
-                      </a>
-                      <a
-                        href="account-orders.html"
-                        className="list-group-item active"
-                      >
-                        <i className="bi bi-basket3 me-2"></i>Orders
-                      </a>
-                      <a
-                        href="account-profile.html"
-                        className="list-group-item"
-                      >
-                        <i className="bi bi-person me-2"></i>Profile
-                      </a>
-                      <a
-                        href="account-edit-profile.html"
-                        className="list-group-item"
-                      >
-                        <i className="bi bi-pencil me-2"></i>Edit Profile
-                      </a>
-                      <a
-                        href="account-saved-address.html"
-                        className="list-group-item"
-                      >
-                        <i className="bi bi-pin-map me-2"></i>Saved Address
-                      </a>
-                      <a href="wishlist.html" className="list-group-item">
-                        <i className="bi bi-suit-heart me-2"></i>Wishlist
-                      </a>
-                      <a
-                        href="authentication-login.html"
-                        className="list-group-item"
-                      >
-                        <i className="bi bi-power me-2"></i>Logout
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </nav>
-            </div>
+            <Navbar />
             <div className="col-12 col-xl-9">
               <div className="card rounded-0 mb-3 bg-light">
                 <div className="card-body">
