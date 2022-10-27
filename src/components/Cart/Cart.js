@@ -68,7 +68,7 @@ function Cart() {
             className={`btn btn-lg btn-dark ${styles["btn-ecomm"]} py-3`}
           >
             <span className="mx-3">Checkout</span>
-            {totalPrice && `$${totalPrice}`}
+            {totalPrice ? `$${totalPrice}` : undefined}
           </button>
         </div>
       </div>

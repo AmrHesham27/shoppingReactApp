@@ -23,7 +23,7 @@ function CartItem(props) {
   return (
     <div className="d-flex align-items-center gap-3 p-3">
       <div className="bottom-product-img">
-        <img src={props.img} width="60" alt="product" />
+        <img src={props.img} width="70" alt="product" />
       </div>
       <div>
         <h6 className="mb-0 fw-light mb-1">{props.name}</h6>
