@@ -1,36 +1,49 @@
+// React
+import { useCallback, useContext, useEffect, useState } from "react";
+import AppContext from "../../context/app-context";
+
+// redux
+import { useSelector } from "react-redux";
+
+// Components
+import CartItem from "./CartItem";
 import Modal from "../../components/UI/Modal/Modal";
+
+// css
 import styles from "./Cart.module.css";
+
+// Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import CartItem from "./CartItem";
-import { useContext, useEffect, useState } from "react";
-import AppContext from "../../context/app-context";
-import { useSelector } from "react-redux";
 
 function Cart() {
   const ctx = useContext(AppContext);
 
-  const cartItemsObject = useSelector((state) => state.cart.items);
+  const { items: cartItemsObject } = useSelector((state) => state.cart);
+
   const [cartItemsElements, setCartItemsElements] = useState([]);
+
+  const turnItemsToElements = useCallback((cartItemsObject) => {
+    const cartItemsArray = Object.values(cartItemsObject);
+    setCartItemsElements(
+      cartItemsArray.map((item) => (
+        <CartItem
+          img={item.img}
+          name={item.name}
+          qty={item.qty}
+          price={item.price}
+          key={item.id}
+          id={item.id}
+        />
+      ))
+    );
+  }, []);
 
   useEffect(() => {
     if (cartItemsObject) {
-      const cartItems = Object.values(cartItemsObject);
-
-      setCartItemsElements(
-        cartItems.map((item, index) => (
-          <CartItem
-            img={item.img}
-            name={item.name}
-            qty={item.qty}
-            price={item.price}
-            key={index}
-            id={item.id}
-          />
-        ))
-      );
+      turnItemsToElements(cartItemsObject);
     }
-  }, [cartItemsObject]);
+  }, [cartItemsObject, turnItemsToElements]);
 
   return (
     <Modal>

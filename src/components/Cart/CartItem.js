@@ -3,12 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import styles from "./CartItem.module.css";
 import { cartActions } from "../../redux/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function CartItem(props) {
   const dispatch = useDispatch();
+  const { items: cartItems, itemsNumber: cartItemsNumber } = useSelector(
+    (state) => state.cart
+  );
 
   const handleDeleteProduct = () => {
+    localStorage.setItem(
+      "cartItemsNumber",
+      JSON.stringify(cartItemsNumber - cartItems[props.id]["qty"])
+    );
+    const localCartItems = JSON.parse(localStorage.getItem("cartItems"));
+    delete localCartItems[props.id];
+    localStorage.setItem("cartItems", JSON.stringify(localCartItems));
     dispatch(cartActions.removeProduct({ id: props.id }));
   };
 
@@ -17,6 +27,16 @@ function CartItem(props) {
   };
 
   const handleDecreaseProductQty = () => {
+    if (cartItems[props.id]["qty"] === 1) {
+      localStorage.setItem(
+        "cartItemsNumber",
+        JSON.stringify(cartItemsNumber - 1)
+      );
+      console.log("deletd");
+      const localCartItems = JSON.parse(localStorage.getItem("cartItems"));
+      delete localCartItems[props.id];
+      localStorage.setItem("cartItems", JSON.stringify(localCartItems));
+    }
     dispatch(cartActions.decreaseProductQty({ id: props.id }));
   };
 

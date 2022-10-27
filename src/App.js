@@ -5,6 +5,7 @@ import React, { Suspense, useEffect } from "react";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./redux/authSlice";
+import { cartActions } from "./redux/cartSlice";
 
 // css & bootsrap
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,6 +21,7 @@ const Register = React.lazy(() => import("./pages/Register/Register"));
 const Login = React.lazy(() => import("./pages/Login/Login"));
 const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
 const Dashboard = React.lazy(() => import("./pages/Dashboard/Dashboard"));
+const Orders = React.lazy(() => import("./pages/Dashboard/Orders"));
 
 const SpinnerPage = () => {
   return (
@@ -35,9 +37,13 @@ const SpinnerPage = () => {
 };
 
 function App() {
+  console.log("App is here");
   const dispatch = useDispatch();
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const { itemsNumber: cartItemsNumber, items: cartItems } = useSelector(
+    (state) => state.cart
+  );
 
   const NotLoggedInRoute = (page, path) => {
     if (isLoggedIn) {
@@ -69,7 +75,25 @@ function App() {
           dispatch(authActions.login(data["data"]));
         });
     }
-  }, [dispatch]);
+
+    // persisting data in localstorage is done here and in cartItem component
+    if (
+      JSON.parse(localStorage.getItem("cartItemsNumber")) &&
+      !cartItemsNumber
+    ) {
+      dispatch(
+        cartActions.setCart({
+          items: JSON.parse(localStorage.getItem("cartItems")),
+          itemsNumber: JSON.parse(localStorage.getItem("cartItemsNumber")),
+        })
+      );
+    }
+
+    if (cartItemsNumber) {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      localStorage.setItem("cartItemsNumber", JSON.stringify(cartItemsNumber));
+    }
+  }, [dispatch, cartItems, cartItemsNumber]);
 
   return (
     <Suspense fallback={<SpinnerPage />}>
@@ -82,6 +106,8 @@ function App() {
         {NotLoggedInRoute(<Register />, "/register")}
 
         {ProtectedRoute(<Dashboard />, "/dashboard")}
+
+        <Route path="/orders" element={<Orders />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

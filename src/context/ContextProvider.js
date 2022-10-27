@@ -4,10 +4,7 @@ import { useState } from "react";
 const CartProvider = (props) => {
   const [cartIsShown, setCartIsShown] = useState(false);
   const [navbarIsShown, setNavbarIsShown] = useState(false);
-  const [message, setMessage] = useState({
-    text: null,
-    type: null,
-  });
+  const [message, setMessage] = useState(null);
 
   const cartContext = {
     cartIsShown,
@@ -22,11 +19,7 @@ const CartProvider = (props) => {
     },
     message,
     setMessage: (message) => setMessage(message),
-    clearMessage: () =>
-      setMessage({
-        text: null,
-        type: null,
-      }),
+    clearMessage: () => setMessage(null),
   };
 
   return (

@@ -10,6 +10,7 @@ import styles from "./styles.module.css";
 // redux
 import { authActions } from "../../redux/authSlice";
 import { useDispatch } from "react-redux";
+import Message from "../../components/UI/Message/Message";
 
 function Login() {
   const ctx = useContext(AppContext);
@@ -85,6 +86,7 @@ function Login() {
             </p>
           </div>
         </form>
+        <Message />
       </Layout>
     </>
   );

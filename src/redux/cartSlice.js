@@ -32,6 +32,10 @@ export const cartSlice = createSlice({
       state.items[action.payload.id].qty++;
       state.itemsNumber++;
     },
+    setCart: (state, action) => {
+      state.itemsNumber = action.payload["itemsNumber"];
+      state.items = action.payload["items"];
+    },
   },
 });
 

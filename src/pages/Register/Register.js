@@ -2,12 +2,11 @@ import React from "react";
 import Layout from "../../components/layout/Layout/Layout";
 import styles from "./styles.module.css";
 import { useRef } from "react";
-import { useContext } from "react";
-import AppContext from "../../context/app-context";
 import Message from "../../components/UI/Message/Message";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
-  const ctx = useContext(AppContext);
+  const navigate = useNavigate();
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -28,10 +27,18 @@ function Register() {
       }),
     });
     response.json().then((data) => {
-      ctx.setMessage({
-        text: "You were registered successfully",
-        type: "success",
-      });
+      if (response.ok) {
+        navigate("/login", {
+          state: {
+            flashMessage: {
+              text: "You were registered successfully",
+              type: "success",
+            },
+          },
+        });
+      } else {
+        console.log("error");
+      }
     });
   };
 
