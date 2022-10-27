@@ -1,6 +1,6 @@
 // react
 import { Routes, Route, Navigate } from "react-router-dom";
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 // redux
 import { useSelector, useDispatch } from "react-redux";
@@ -37,7 +37,7 @@ const SpinnerPage = () => {
 };
 
 function App() {
-  console.log("App is here");
+  const [firstRender, setFirstRender] = useState(true);
   const dispatch = useDispatch();
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -61,7 +61,7 @@ function App() {
     return <Route path={path} element={page} />;
   };
 
-  useEffect(() => {
+  const loginUser = () => {
     const token = localStorage.getItem("token");
     if (token) {
       fetch("http://localhost:4000/me", {
@@ -75,11 +75,13 @@ function App() {
           dispatch(authActions.login(data["data"]));
         });
     }
+  };
 
-    // persisting data in localstorage is done here and in cartItem component
+  const persistCartData = () => {
     if (
       JSON.parse(localStorage.getItem("cartItemsNumber")) &&
-      !cartItemsNumber
+      !cartItemsNumber &&
+      firstRender
     ) {
       dispatch(
         cartActions.setCart({
@@ -88,12 +90,15 @@ function App() {
         })
       );
     }
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem("cartItemsNumber", JSON.stringify(cartItemsNumber));
+  };
 
-    if (cartItemsNumber) {
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
-      localStorage.setItem("cartItemsNumber", JSON.stringify(cartItemsNumber));
-    }
-  }, [dispatch, cartItems, cartItemsNumber]);
+  useEffect(() => {
+    loginUser();
+    persistCartData();
+    setFirstRender(false);
+  }, [loginUser, persistCartData, setFirstRender]);
 
   return (
     <Suspense fallback={<SpinnerPage />}>
