@@ -1,7 +1,7 @@
 import React from "react";
-import shipingImage from "../../../assets/images/shipping.webp";
-import supportImage from "../../../assets/images/support.webp";
-import moneyImage from "../../../assets/images/money.webp";
+import shipingImage from "../../../../assets/images/shipping.webp";
+import supportImage from "../../../../assets/images/support.webp";
+import moneyImage from "../../../../assets/images/money.webp";
 import styles from "./WhyUs.module.css";
 
 function WhyUs() {

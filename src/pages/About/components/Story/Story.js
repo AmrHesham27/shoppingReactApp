@@ -1,4 +1,4 @@
-import image from "../../../assets/images/about.jpeg";
+import image from "../../../../assets/images/about.jpeg";
 import styles from "./Story.module.css";
 
 function Story() {

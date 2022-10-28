@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.css";
 import { useDispatch } from "react-redux";
-import { cartActions } from "../../../redux/cartSlice";
+import { cartActions } from "../../../../redux/cartSlice";
 import { useContext } from "react";
-import AppContext from "../../../context/app-context";
+import AppContext from "../../../../context/app-context";
 
 function CustomCard(props) {
   const ctx = useContext(AppContext);
