@@ -20,8 +20,7 @@ const ContactUs = React.lazy(() => import("./pages/ContactUs/ContactUs"));
 const Register = React.lazy(() => import("./pages/Register/Register"));
 const Login = React.lazy(() => import("./pages/Login/Login"));
 const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
-const Dashboard = React.lazy(() => import("./pages/Dashboard/Dashboard"));
-const Orders = React.lazy(() => import("./pages/Dashboard/Orders"));
+const Dashboard = React.lazy(() => import("./pages/Dashboard/Orders"));
 
 const SpinnerPage = () => {
   return (
@@ -111,8 +110,6 @@ function App() {
         {NotLoggedInRoute(<Register />, "/register")}
 
         {ProtectedRoute(<Dashboard />, "/dashboard")}
-
-        <Route path="/orders" element={<Orders />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

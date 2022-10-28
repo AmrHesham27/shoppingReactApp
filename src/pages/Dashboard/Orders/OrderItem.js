@@ -1,5 +1,5 @@
 import { Card } from "react-bootstrap";
-import styles from "./index.module.css";
+import styles from "../styles/index.module.css";
 
 function OrderItem(props) {
   return (

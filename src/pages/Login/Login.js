@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import Message from "../../components/UI/Message/Message";
 
 function Login() {
+  console.log("login page");
   const ctx = useContext(AppContext);
 
   const dispatch = useDispatch();
@@ -33,12 +34,14 @@ function Login() {
       }),
     });
     response.json().then((data) => {
-      localStorage.setItem("token", data["data"]["token"]);
-      ctx.setMessage({
-        text: "You were loggedIn successfully",
-        type: "success",
-      });
-      dispatch(authActions.login(data["data"]["user"]));
+      if (response.ok) {
+        localStorage.setItem("token", data["data"]["token"]);
+        ctx.setMessage({
+          text: "You were loggedIn successfully",
+          type: "success",
+        });
+        dispatch(authActions.login(data["data"]["user"]));
+      }
     });
   };
 
