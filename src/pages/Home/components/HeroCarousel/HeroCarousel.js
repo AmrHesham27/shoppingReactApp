@@ -1,7 +1,7 @@
-import CoverCarousel from "../../UI/CoverCarousel/CoverCarousel";
-import image1 from "../../../assets/images/CoverCarousel/s_1.webp";
-import image2 from "../../../assets/images/CoverCarousel/s_2.webp";
-import image3 from "../../../assets/images/CoverCarousel/s_3.webp";
+import CoverCarousel from "../../../../components/UI/CoverCarousel/CoverCarousel";
+import image1 from "../../../../assets/images/CoverCarousel/s_1.webp";
+import image2 from "../../../../assets/images/CoverCarousel/s_2.webp";
+import image3 from "../../../../assets/images/CoverCarousel/s_3.webp";
 
 function HeroCarousel() {
   const itemsInfo = [
