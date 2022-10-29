@@ -3,7 +3,6 @@ import {
   createBrowserRouter,
   RouterProvider,
   redirect,
-  Await,
 } from "react-router-dom";
 import React, { Suspense } from "react";
 
@@ -15,9 +14,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "swiper/css/bundle";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from "react-bootstrap/Spinner";
-
-// loaders
-import { getHomeData } from "./pages/Home/Home";
 
 // pages
 const Home = React.lazy(() => import("./pages/Home/Home"));
@@ -61,7 +57,6 @@ function Router() {
           <Home />
         </Suspense>
       ),
-      loader: getHomeData,
     },
     {
       path: "about",
