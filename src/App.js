@@ -23,7 +23,7 @@ function App() {
   const loginUser = useCallback(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("http://localhost:4000/me", {
+      fetch(`${process.env.REACT_APP_SERVER}/me`, {
         method: "GET",
         headers: new Headers({
           Authorization: `${token}`,

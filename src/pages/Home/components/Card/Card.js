@@ -28,7 +28,7 @@ function CustomCard(props) {
   };
 
   useEffect(() => {
-    const url = `http://localhost:4000/images/${product["imgId"]}/${product["imgExt"]}`;
+    const url = `${process.env.REACT_APP_SERVER}/images/${product["imgId"]}/${product["imgExt"]}`;
     fetch(url).then((response) => {
       response.blob().then((blob) => setImage(URL.createObjectURL(blob)));
     });

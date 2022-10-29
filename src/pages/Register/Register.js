@@ -6,6 +6,8 @@ import Message from "../../components/UI/Message/Message";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
+  console.log(process.env.S);
+
   const navigate = useNavigate();
 
   const emailInputRef = useRef();
@@ -15,7 +17,7 @@ function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:4000/register", {
+    const response = await fetch(`${process.env.REACT_APP_SERVER}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
