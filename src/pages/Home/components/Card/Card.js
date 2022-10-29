@@ -18,7 +18,7 @@ function CustomCard(props) {
     ctx.showCart();
     dispatch(
       cartActions.addProduct({
-        id: product.id,
+        id: product._id,
         img: image,
         name: product.name,
         price: product.price,
