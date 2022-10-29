@@ -3,17 +3,8 @@ import Card from "../Card/Card";
 import React from "react";
 
 function CardsCarousel(props) {
-  const slides = props["products"].map((slide, key) => {
-    return (
-      <Card
-        img={slide.img}
-        name={slide.name}
-        stars={slide.stars}
-        price={slide.price}
-        id={slide.id}
-        key={key}
-      />
-    );
+  const slides = props["products"].map((product, key) => {
+    return <Card product={product} key={key} />;
   });
   return (
     <div className="my-5">

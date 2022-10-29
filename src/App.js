@@ -1,5 +1,5 @@
 // react
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Router from "./Router";
 
 // redux
@@ -20,7 +20,7 @@ function App() {
     (state) => state.cart
   );
 
-  const loginUser = () => {
+  const loginUser = useCallback(() => {
     const token = localStorage.getItem("token");
     if (token) {
       fetch("http://localhost:4000/me", {
@@ -34,9 +34,9 @@ function App() {
           dispatch(authActions.login(data["data"]));
         });
     }
-  };
+  }, [dispatch]);
 
-  const persistCartData = () => {
+  const persistCartData = useCallback(() => {
     if (
       JSON.parse(localStorage.getItem("cartItemsNumber")) &&
       !cartItemsNumber &&
@@ -51,7 +51,7 @@ function App() {
     }
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     localStorage.setItem("cartItemsNumber", JSON.stringify(cartItemsNumber));
-  };
+  }, [dispatch, cartItems, cartItemsNumber, firstRender]);
 
   useEffect(() => {
     loginUser();

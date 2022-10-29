@@ -3,7 +3,6 @@ import {
   createBrowserRouter,
   RouterProvider,
   redirect,
-  Await,
 } from "react-router-dom";
 import React, { Suspense } from "react";
 

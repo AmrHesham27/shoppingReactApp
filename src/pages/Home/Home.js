@@ -29,16 +29,6 @@ export const getHomeData = async () => {
   if (response.ok) {
     const data = await response.json();
     let products = data["data"];
-
-    products.map(async (product) => {
-      const url = `http://localhost:4000/images/${product.imgId}/${product.imgExt}`;
-      const response = await fetch(url);
-      const blob = await response.blob();
-      const img = URL.createObjectURL(blob);
-      let newProduct = product;
-      newProduct.img = img;
-    });
-
-    return defer({ products: data["data"] });
+    return defer({ products });
   }
 };

@@ -4,10 +4,13 @@ import { faStar, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.css";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../../../redux/cartSlice";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import AppContext from "../../../../context/app-context";
 
 function CustomCard(props) {
+  const { product } = props;
+  const [image, setImage] = useState(null);
+
   const ctx = useContext(AppContext);
   const dispatch = useDispatch();
 
@@ -15,14 +18,21 @@ function CustomCard(props) {
     ctx.showCart();
     dispatch(
       cartActions.addProduct({
-        id: props.id,
-        img: props.img,
-        name: props.name,
-        price: props.price,
+        id: product.id,
+        img: image,
+        name: product.name,
+        price: product.price,
         qty: 1,
       })
     );
   };
+
+  useEffect(() => {
+    const url = `http://localhost:4000/images/${product["imgId"]}/${product["imgExt"]}`;
+    fetch(url).then((response) => {
+      response.blob().then((blob) => setImage(URL.createObjectURL(blob)));
+    });
+  }, [setImage, product]);
 
   return (
     <Card
@@ -30,7 +40,7 @@ function CustomCard(props) {
       className={styles.myCard}
     >
       <div className={styles.imgContainer}>
-        <Card.Img variant="top" src={props.img} />
+        {image && <Card.Img variant="top" src={image} />}
         <div className={styles.productOptions}>
           <button onClick={handleClickCart}>
             <FontAwesomeIcon icon={faCartShopping} />
@@ -38,9 +48,9 @@ function CustomCard(props) {
         </div>
       </div>
       <Card.Body>
-        <Card.Title>{props.name}</Card.Title>
+        <Card.Title>{product.name}</Card.Title>
         <div className="d-flex flex-row justify-content-center">
-          {[...Array(props.stars)].map((value, index) => (
+          {[...Array(5)].map((value, index) => (
             <FontAwesomeIcon
               icon={faStar}
               size="1x"
@@ -49,7 +59,7 @@ function CustomCard(props) {
             />
           ))}
         </div>
-        <Card.Text>{`$${props.price}`}</Card.Text>
+        <Card.Text>{`$${product.price}`}</Card.Text>
       </Card.Body>
     </Card>
   );
