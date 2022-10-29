@@ -77,10 +77,13 @@ footer .icons .icon:hover {
 }
 footer a {
   padding: 0.25rem 0;
+  color: black !important;
+  text-decoration: none !important;
 }
 footer a:hover {
   font-weight: 600;
   text-decoration: underline !important;
+  color: black !important;
 }
 footer p {
   margin-bottom: 0 !important;

@@ -19,7 +19,8 @@ function CustomCard(props) {
     dispatch(
       cartActions.addProduct({
         id: product._id,
-        img: image,
+        imgId: product.imgId,
+        imgExt: product.imgExt,
         name: product.name,
         price: product.price,
         qty: 1,

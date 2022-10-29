@@ -33,15 +33,8 @@ function Cart() {
   const turnItemsToElements = useCallback((cartItemsObject) => {
     const cartItemsArray = Object.values(cartItemsObject);
     setCartItemsElements(
-      cartItemsArray.map((item) => (
-        <CartItem
-          img={item.img}
-          name={item.name}
-          qty={item.qty}
-          price={item.price}
-          key={item.id}
-          id={item.id}
-        />
+      cartItemsArray.map((product, index) => (
+        <CartItem product={product} key={index} />
       ))
     );
   }, []);
