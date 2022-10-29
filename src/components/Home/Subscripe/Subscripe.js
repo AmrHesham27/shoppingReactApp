@@ -1,5 +1,5 @@
 import styles from "./styles.module.css";
-import image from "../../../../assets/images/subscripe.jpeg";
+import image from "../../../assets/images/subscripe.jpeg";
 
 function Subscripe() {
   return (

@@ -1,4 +1,4 @@
-import SlidesPerView from "../../../../components/UI/SlidesPerView/SlidesPerView";
+import SlidesPerView from "../../../components/UI/SlidesPerView/SlidesPerView";
 import Card from "../Card/Card";
 import React from "react";
 

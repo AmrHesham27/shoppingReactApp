@@ -1,13 +1,13 @@
-import image1 from "../../../../assets/images/brands/01.webp";
-import image2 from "../../../../assets/images/brands/02.webp";
-import image3 from "../../../../assets/images/brands/03.webp";
-import image4 from "../../../../assets/images/brands/04.webp";
-import image5 from "../../../../assets/images/brands/05.webp";
-import image6 from "../../../../assets/images/brands/06.webp";
-import image7 from "../../../../assets/images/brands/07.webp";
-import image8 from "../../../../assets/images/brands/08.webp";
-import image9 from "../../../../assets/images/brands/09.webp";
-import image10 from "../../../../assets/images/brands/10.webp";
+import image1 from "../../../assets/images/brands/01.webp";
+import image2 from "../../../assets/images/brands/02.webp";
+import image3 from "../../../assets/images/brands/03.webp";
+import image4 from "../../../assets/images/brands/04.webp";
+import image5 from "../../../assets/images/brands/05.webp";
+import image6 from "../../../assets/images/brands/06.webp";
+import image7 from "../../../assets/images/brands/07.webp";
+import image8 from "../../../assets/images/brands/08.webp";
+import image9 from "../../../assets/images/brands/09.webp";
+import image10 from "../../../assets/images/brands/10.webp";
 import styles from "./Brands.module.css";
 
 function Brands() {
