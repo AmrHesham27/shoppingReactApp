@@ -22,7 +22,7 @@ function Message() {
       toast[message["type"]](message["text"]);
     }
     clearMessage();
-  }, [message, toast, clearMessage, flashMessage, firstRender]);
+  }, [message, clearMessage, flashMessage, firstRender]);
 
   return <ToastContainer />;
 }

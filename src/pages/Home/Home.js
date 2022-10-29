@@ -25,7 +25,7 @@ function Home() {
 export default Home;
 
 export const getHomeData = async () => {
-  const response = await fetch(`${REACT_APP_SERVER}/products`);
+  const response = await fetch(`${process.env.REACT_APP_SERVER}/products`);
   if (response.ok) {
     const data = await response.json();
     let products = data["data"];

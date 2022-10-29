@@ -15,7 +15,7 @@ function Footer() {
   return (
     <footer>
       <div className={styles.about}>
-        <img src={logo} className="mb-3" />
+        <img src={logo} className="mb-3" alt="shoppingo logo" />
         <h5 className="mb-3 fw-bold">About Us</h5>
         <p>
           There are many variations of passages of Lorem Ipsum available, but
@@ -25,22 +25,22 @@ function Footer() {
       </div>
       <div className={styles.explore}>
         <h5 className="mb-3 fw-bold">Explore</h5>
-        <a>Fashion</a>
-        <a>Women</a>
-        <a>Furniture</a>
-        <a>Shoes</a>
-        <a>Topwear</a>
-        <a>Brands</a>
-        <a>Kids</a>
+        <a href="/">Fashion</a>
+        <a href="/">Women</a>
+        <a href="/">Furniture</a>
+        <a href="/">Shoes</a>
+        <a href="/">Topwear</a>
+        <a href="/">Brands</a>
+        <a href="/">Kids</a>
       </div>
       <div className={styles.company}>
         <h5 className="mb-3 fw-bold">Company</h5>
-        <a>About Us</a>
-        <a>Contact Us</a>
-        <a>FAQ</a>
-        <a>Privacy</a>
-        <a>Terms</a>
-        <a>Complaints</a>
+        <a href="/">About Us</a>
+        <a href="/">Contact Us</a>
+        <a href="/">FAQ</a>
+        <a href="/">Privacy</a>
+        <a href="/">Terms</a>
+        <a href="/">Complaints</a>
       </div>
       <div className={styles.follow}>
         <h5 className="mb-3 fw-bold">Follow Us</h5>
@@ -69,11 +69,11 @@ function Footer() {
       <div className={styles.download}>
         <h5 className="mt-4 fw-bold">Download Mobile App</h5>
         <div>
-          <a>
-            <img src={PlayStoreImage} />
+          <a href="/">
+            <img src={PlayStoreImage} alt="play store" />
           </a>
-          <a>
-            <img src={AppleStoreImage} />
+          <a href="/">
+            <img src={AppleStoreImage} alt="apple store" />
           </a>
         </div>
       </div>

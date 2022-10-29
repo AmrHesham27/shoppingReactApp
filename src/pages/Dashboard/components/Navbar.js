@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../styles/index.module.css";
-import { Col, Navbar, Offcanvas, Button } from "react-bootstrap";
-
-//<nav className="navbar navbar-expand-xl flex-wrap p-0">
+import { Col, Navbar, Offcanvas } from "react-bootstrap";
 
 function MyNavbar(props) {
   const handleCloseNavbar = () => {
