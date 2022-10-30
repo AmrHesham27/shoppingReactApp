@@ -16,15 +16,12 @@ import AppContext from "../../../context/app-context";
 import { useNavigate } from "react-router-dom";
 
 // redux
-import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../../../redux/authSlice";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const navigate = useNavigate();
   const cartItemsNumber = useSelector((state) => state.cart.itemsNumber);
   const ctx = useContext(AppContext);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const dispatch = useDispatch();
 
   const showNavbar = () => {
     ctx.showNavbar();
@@ -35,8 +32,9 @@ function Navbar() {
   };
 
   const logout = () => {
-    dispatch(authActions.logout());
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("isLoggedIn");
     navigate("/login");
   };
 
@@ -82,7 +80,7 @@ function Navbar() {
           />
         </div>
 
-        {isLoggedIn ? (
+        {localStorage.getItem("isLoggedIn") ? (
           <button className={styles.logoutButton} onClick={logout}>
             Logout
           </button>

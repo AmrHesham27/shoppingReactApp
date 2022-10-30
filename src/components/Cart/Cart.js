@@ -1,10 +1,9 @@
 // React
-import { useCallback, useContext, useEffect, useState, useRef } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import AppContext from "../../context/app-context";
 
 // redux
-import { useSelector, useDispatch } from "react-redux";
-import { cartActions } from "../../redux/cartSlice";
+import { useSelector } from "react-redux";
 
 // Components
 import CartItem from "./CartItem";
@@ -19,7 +18,6 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 function Cart() {
   const ctx = useContext(AppContext);
-  const dispatch = useDispatch();
 
   const { items: cartItemsObject, itemsNumber: cartItemsNumber } = useSelector(
     (state) => state.cart
@@ -41,31 +39,11 @@ function Cart() {
     );
   }, []);
 
-  let firstRender = useRef(true);
-  const persistCartData = useCallback(() => {
-    if (
-      JSON.parse(localStorage.getItem("cartItemsNumber")) &&
-      !cartItemsNumber &&
-      firstRender.current
-    ) {
-      dispatch(
-        cartActions.setCart({
-          items: JSON.parse(localStorage.getItem("cartItems")),
-          itemsNumber: JSON.parse(localStorage.getItem("cartItemsNumber")),
-        })
-      );
-    }
-    localStorage.setItem("cartItems", JSON.stringify(cartItemsObject));
-    localStorage.setItem("cartItemsNumber", JSON.stringify(cartItemsNumber));
-  }, [cartItemsNumber, cartItemsObject, dispatch]);
-
   useEffect(() => {
-    persistCartData();
     if (cartItemsObject) {
       turnItemsToElements(cartItemsObject);
     }
-    firstRender.current = false;
-  }, [cartItemsObject, turnItemsToElements, persistCartData]);
+  }, [cartItemsObject, turnItemsToElements]);
 
   return (
     <Modal>
