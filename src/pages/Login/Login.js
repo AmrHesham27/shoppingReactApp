@@ -11,10 +11,12 @@ import styles from "./styles.module.css";
 import { authActions } from "../../redux/authSlice";
 import { useDispatch } from "react-redux";
 import Message from "../../components/UI/Message/Message";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   console.log("login page");
   const ctx = useContext(AppContext);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -36,11 +38,14 @@ function Login() {
     response.json().then((data) => {
       if (response.ok) {
         localStorage.setItem("token", data["data"]["token"]);
+        localStorage.setItem("user", JSON.stringify(data["data"]["user"]));
+        localStorage.setItem("isLoggedIn", true);
         ctx.setMessage({
           text: "You were loggedIn successfully",
           type: "success",
         });
         dispatch(authActions.login(data["data"]["user"]));
+        return navigate("/dashboard/orders");
       }
     });
   };

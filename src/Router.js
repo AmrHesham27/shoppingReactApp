@@ -6,9 +6,6 @@ import {
 } from "react-router-dom";
 import React, { Suspense } from "react";
 
-// redux
-import { useSelector } from "react-redux";
-
 // css & bootsrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import "swiper/css/bundle";
@@ -17,6 +14,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 // loaders
 import { getHomeData } from "./pages/Home/Home";
+import App from "./App";
 
 // pages
 const Home = React.lazy(() => import("./pages/Home/Home"));
@@ -43,96 +41,121 @@ const SpinnerPage = () => {
 };
 
 function Router() {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
   const NotLoggedInRoute = () => {
-    if (isLoggedIn) throw redirect("/dashboard/orders");
+    if (localStorage.getItem("isLoggedIn")) throw redirect("/dashboard/orders");
     return;
   };
 
   const ProtectedRoute = () => {
-    if (!isLoggedIn) throw redirect("/login");
+    if (!localStorage.getItem("isLoggedIn")) throw redirect("/login");
     return;
+  };
+
+  const loginUser = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const response = fetch(`${process.env.REACT_APP_SERVER}/me`, {
+        method: "GET",
+        headers: new Headers({
+          Authorization: `${token}`,
+        }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("user", data["data"]);
+        localStorage.setItem("isLoggedIn", true);
+      } else {
+        localStorage.setItem("user", null);
+        localStorage.setItem("isLoggedIn", false);
+      }
+    }
   };
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <Suspense fallback={<SpinnerPage />}>
-          <Home />
-        </Suspense>
-      ),
-      loader: getHomeData,
-    },
-    {
-      path: "about",
-      element: (
-        <Suspense fallback={<SpinnerPage />}>
-          <About />
-        </Suspense>
-      ),
-    },
-    {
-      path: "contact",
-      element: (
-        <Suspense fallback={<SpinnerPage />}>
-          <ContactUs />
-        </Suspense>
-      ),
-    },
-    {
-      path: "login",
-      element: (
-        <Suspense fallback={<SpinnerPage />}>
-          <Login />
-        </Suspense>
-      ),
-      loader: NotLoggedInRoute,
-    },
-    {
-      path: "register",
-      element: (
-        <Suspense fallback={<SpinnerPage />}>
-          <Register />
-        </Suspense>
-      ),
-      loader: NotLoggedInRoute,
-    },
-    {
-      path: "dashboard",
-      element: (
-        <Suspense fallback={<SpinnerPage />}>
-          <Dashboard />
-        </Suspense>
-      ),
-      loader: ProtectedRoute,
+      element: <App />,
+      loader: loginUser,
       children: [
         {
-          path: "orders",
+          path: "",
           element: (
             <Suspense fallback={<SpinnerPage />}>
-              <Orders />
+              <Home />
+            </Suspense>
+          ),
+          loader: getHomeData,
+        },
+        {
+          path: "about",
+          element: (
+            <Suspense fallback={<SpinnerPage />}>
+              <About />
             </Suspense>
           ),
         },
         {
-          path: "profile",
+          path: "contact",
           element: (
             <Suspense fallback={<SpinnerPage />}>
-              <Profile />
+              <ContactUs />
+            </Suspense>
+          ),
+        },
+        {
+          path: "login",
+          element: (
+            <Suspense fallback={<SpinnerPage />}>
+              <Login />
+            </Suspense>
+          ),
+          loader: NotLoggedInRoute,
+        },
+        {
+          path: "register",
+          element: (
+            <Suspense fallback={<SpinnerPage />}>
+              <Register />
+            </Suspense>
+          ),
+          loader: NotLoggedInRoute,
+        },
+        {
+          path: "dashboard",
+          element: (
+            <Suspense fallback={<SpinnerPage />}>
+              <Dashboard />
+            </Suspense>
+          ),
+          loader: ProtectedRoute,
+          children: [
+            {
+              path: "orders",
+              element: (
+                <Suspense fallback={<SpinnerPage />}>
+                  <Orders />
+                </Suspense>
+              ),
+            },
+            {
+              path: "profile",
+              element: (
+                <Suspense fallback={<SpinnerPage />}>
+                  <Profile />
+                </Suspense>
+              ),
+            },
+          ],
+        },
+        {
+          path: "*",
+          element: (
+            <Suspense fallback={<SpinnerPage />}>
+              <NotFound />
             </Suspense>
           ),
         },
       ],
-    },
-    {
-      path: "*",
-      element: (
-        <Suspense fallback={<SpinnerPage />}>
-          <NotFound />
-        </Suspense>
-      ),
     },
   ]);
 
