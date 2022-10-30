@@ -1,26 +1,24 @@
 // React and components
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Layout from "../../components/layout/Layout/Layout";
 import { useContext } from "react";
 import AppContext from "../../context/app-context";
+import { useNavigate } from "react-router-dom";
 
 // css
 import styles from "./styles.module.css";
 
-// redux
-import Message from "../../components/UI/Message/Message";
-import { useNavigate } from "react-router-dom";
-
 function Login() {
-  console.log("login page");
   const ctx = useContext(AppContext);
   const navigate = useNavigate();
+  const [formIsPending, setFormIsPeding] = useState(false);
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setFormIsPeding(true);
     const response = await fetch(`${process.env.REACT_APP_SERVER}/login`, {
       method: "POST",
       headers: {
@@ -31,18 +29,24 @@ function Login() {
         password: passwordInputRef.current.value,
       }),
     });
-    response.json().then((data) => {
-      if (response.ok) {
-        localStorage.setItem("token", data["data"]["token"]);
-        localStorage.setItem("user", JSON.stringify(data["data"]["user"]));
-        localStorage.setItem("isLoggedIn", true);
-        ctx.setMessage({
-          text: "You were loggedIn successfully",
-          type: "success",
-        });
-        return navigate("/dashboard/orders");
-      }
-    });
+    const data = await response.json();
+
+    if (response.ok) {
+      localStorage.setItem("token", data["data"]["token"]);
+      localStorage.setItem("user", JSON.stringify(data["data"]["user"]));
+      localStorage.setItem("isLoggedIn", true);
+      ctx.setMessage({
+        text: "You were loggedIn successfully",
+        type: "success",
+      });
+      return navigate("/dashboard/orders");
+    } else {
+      ctx.setMessage({
+        text: "Your credientials are wrong",
+        type: "error",
+      });
+    }
+    setFormIsPeding(false);
   };
 
   return (
@@ -78,7 +82,12 @@ function Login() {
             </label>
           </div>
 
-          <button className="btn btn-primary btn-block mb-4">Sign in</button>
+          <button
+            disabled={formIsPending}
+            className="btn btn-primary btn-block mb-4"
+          >
+            Sign in
+          </button>
 
           <div className="text-center">
             <p>
@@ -89,7 +98,6 @@ function Login() {
             </p>
           </div>
         </form>
-        <Message />
       </Layout>
     </>
   );

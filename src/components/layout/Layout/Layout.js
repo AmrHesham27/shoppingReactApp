@@ -1,10 +1,18 @@
+// components
 import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import { useContext, useRef, useCallback, useEffect } from "react";
-import AppContext from "../../../context/app-context";
 import Cart from "../../Cart/Cart";
 import SliderNavbar from "../Header/SliderNavbar/SliderNavbar";
+import Footer from "../Footer/Footer";
+import Message from "../../UI/Message/Message";
+
+// context
+import { useContext, useRef, useCallback, useEffect } from "react";
+import AppContext from "../../../context/app-context";
+
+// css
 import styles from "./Layout.module.css";
+
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../../redux/cartSlice";
 
@@ -47,6 +55,7 @@ function Layout(props) {
         {ctx.navbarIsShown && <SliderNavbar />}
         {props.children}
       </div>
+      <Message />
       <Footer />
     </>
   );

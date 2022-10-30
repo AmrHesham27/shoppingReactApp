@@ -14,8 +14,12 @@
     border-radius: 0;
     padding: 10px 20px;
 
-    &:hover {
-      background-color: black;
+    &:hover,
+    &:active,
+    &:focus,
+    &:checked,
+    &:disabled {
+      background-color: black !important;
     }
   }
 

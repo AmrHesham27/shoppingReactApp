@@ -1,14 +1,15 @@
 import React from "react";
 import Layout from "../../components/layout/Layout/Layout";
 import styles from "./styles.module.css";
-import { useRef } from "react";
-import Message from "../../components/UI/Message/Message";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import AppContext from "../../context/app-context";
 
 function Register() {
-  console.log(process.env.S);
-
   const navigate = useNavigate();
+  const ctx = useContext(AppContext);
+  const [formIsPending, setFormIsPeding] = useState(false);
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -16,6 +17,7 @@ function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setFormIsPeding(true);
 
     const response = await fetch(`${process.env.REACT_APP_SERVER}/register`, {
       method: "POST",
@@ -28,20 +30,19 @@ function Register() {
         confirmedPassword: confirmPasswordInputRef.current.value,
       }),
     });
-    response.json().then((data) => {
-      if (response.ok) {
-        navigate("/login", {
-          state: {
-            flashMessage: {
-              text: "You were registered successfully",
-              type: "success",
-            },
-          },
-        });
-      } else {
-        console.log("error");
-      }
-    });
+    if (response.ok) {
+      ctx.setMessage({
+        text: "You were registered successfully",
+        type: "success",
+      });
+      return navigate("/login");
+    } else {
+      ctx.setMessage({
+        text: "Error happened, try again",
+        type: "error",
+      });
+    }
+    setFormIsPeding(false);
   };
 
   return (
@@ -89,7 +90,11 @@ function Register() {
             </label>
           </div>
 
-          <button type="submit" className="btn btn-primary btn-block mb-4">
+          <button
+            disabled={formIsPending}
+            type="submit"
+            className="btn btn-primary btn-block mb-4"
+          >
             Register
           </button>
 
@@ -102,7 +107,6 @@ function Register() {
             </p>
           </div>
         </form>
-        <Message />
       </Layout>
     </>
   );

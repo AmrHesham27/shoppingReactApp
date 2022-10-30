@@ -2,7 +2,6 @@ import { useState } from "react";
 import Layout from "../../components/layout/Layout/Layout";
 import { Row, Col, Button, Container } from "react-bootstrap";
 import Navbar from "./components/Navbar";
-import Message from "../../components/UI/Message/Message";
 import styles from "./styles/index.module.css";
 import { Outlet } from "react-router-dom";
 
@@ -39,7 +38,6 @@ function Dashboard() {
           </Row>
         </Container>
       </section>
-      <Message />
     </Layout>
   );
 }

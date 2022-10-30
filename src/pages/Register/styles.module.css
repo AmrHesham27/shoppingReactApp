@@ -15,8 +15,8 @@
   border-radius: 0;
   padding: 10px 20px;
 }
-.form button:hover {
-  background-color: black;
+.form button:hover, .form button:active, .form button:focus, .form button:checked, .form button:disabled {
+  background-color: black !important;
 }
 .form .bold {
   font-weight: 700;
