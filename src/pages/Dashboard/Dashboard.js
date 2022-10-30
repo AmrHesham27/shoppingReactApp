@@ -4,8 +4,9 @@ import { Row, Col, Button, Container } from "react-bootstrap";
 import Navbar from "./components/Navbar";
 import Message from "../../components/UI/Message/Message";
 import styles from "./styles/index.module.css";
+import { Outlet } from "react-router-dom";
 
-function Orders(props) {
+function Dashboard() {
   const [navbarIsShown, setNavbarIsShown] = useState(false);
 
   const handleShowNavbar = () => setNavbarIsShown(true);
@@ -23,7 +24,7 @@ function Orders(props) {
         <Container>
           <div className="d-flex align-items-center px-3 py-2 border mb-4">
             <div className="text-start">
-              <h4 className="mb-0 h4 fw-bold">Account - Orders</h4>
+              <h4 className="mb-0 h4 fw-bold">Dashboard</h4>
             </div>
           </div>
 
@@ -32,7 +33,9 @@ function Orders(props) {
               isShown={navbarIsShown}
               setNavbarIsShown={setNavbarIsShown}
             />
-            <Col xl={9}>{props.children}</Col>
+            <Col xl={9}>
+              <Outlet />
+            </Col>
           </Row>
         </Container>
       </section>
@@ -41,4 +44,4 @@ function Orders(props) {
   );
 }
 
-export default Orders;
+export default Dashboard;

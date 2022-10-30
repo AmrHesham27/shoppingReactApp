@@ -24,7 +24,9 @@ const About = React.lazy(() => import("./pages/About/About"));
 const ContactUs = React.lazy(() => import("./pages/ContactUs/ContactUs"));
 const Register = React.lazy(() => import("./pages/Register/Register"));
 const Login = React.lazy(() => import("./pages/Login/Login"));
-const Dashboard = React.lazy(() => import("./pages/Dashboard/Orders"));
+const Dashboard = React.lazy(() => import("./pages/Dashboard/Dashboard"));
+const Orders = React.lazy(() => import("./pages/Dashboard/Orders"));
+const Profile = React.lazy(() => import("./pages/Dashboard/Profile/Profile"));
 const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
 
 const SpinnerPage = () => {
@@ -44,12 +46,13 @@ function Router() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const NotLoggedInRoute = () => {
-    if (isLoggedIn) throw redirect("/dashboard");
+    if (isLoggedIn) throw redirect("/dashboard/orders");
     return;
   };
 
   const ProtectedRoute = () => {
     if (!isLoggedIn) throw redirect("/login");
+    return;
   };
 
   const router = createBrowserRouter([
@@ -104,6 +107,24 @@ function Router() {
         </Suspense>
       ),
       loader: ProtectedRoute,
+      children: [
+        {
+          path: "orders",
+          element: (
+            <Suspense fallback={<SpinnerPage />}>
+              <Orders />
+            </Suspense>
+          ),
+        },
+        {
+          path: "profile",
+          element: (
+            <Suspense fallback={<SpinnerPage />}>
+              <Profile />
+            </Suspense>
+          ),
+        },
+      ],
     },
     {
       path: "*",

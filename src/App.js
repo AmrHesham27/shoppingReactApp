@@ -13,7 +13,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const firstRender = useRef(true);
-  console.log(firstRender.current);
   const dispatch = useDispatch();
 
   const loginUser = useCallback(() => {

@@ -42,10 +42,10 @@ function OrdersPage() {
   ));
 
   return (
-    <Dashboard>
+    <>
       <SearchOrders />
       {orders}
-    </Dashboard>
+    </>
   );
 }
 
