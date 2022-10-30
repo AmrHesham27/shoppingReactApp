@@ -1,22 +1,34 @@
-import React from "react";
-import Layout from "../../components/layout/Layout/Layout";
-import styles from "./styles.module.css";
-import { useRef, useState } from "react";
+// react and components
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Layout from "../../components/layout/Layout/Layout";
+
+// css
+import styles from "./styles.module.css";
+
+// context
 import { useContext } from "react";
 import AppContext from "../../context/app-context";
 
+// libraries
+import { useForm } from "react-hook-form";
+
+// bootstarp
+import { Form, Col } from "react-bootstrap";
+
 function Register() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
+
   const navigate = useNavigate();
   const ctx = useContext(AppContext);
   const [formIsPending, setFormIsPeding] = useState(false);
 
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const confirmPasswordInputRef = useRef();
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const onSubmit = async (data) => {
     setFormIsPeding(true);
 
     const response = await fetch(`${process.env.REACT_APP_SERVER}/register`, {
@@ -24,11 +36,7 @@ function Register() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email: emailInputRef.current.value,
-        password: passwordInputRef.current.value,
-        confirmedPassword: confirmPasswordInputRef.current.value,
-      }),
+      body: JSON.stringify(data),
     });
     if (response.ok) {
       ctx.setMessage({
@@ -48,47 +56,87 @@ function Register() {
   return (
     <>
       <Layout>
-        <form
-          onSubmit={handleSubmit}
+        <Form
+          onSubmit={handleSubmit(onSubmit)}
           className={`${styles.form} d-flex flex-column align-items-center justify-content-center`}
         >
           <h4 className="my-4">Register</h4>
 
-          <div className="form-outline mb-4">
-            <input
-              type="email"
-              id="email"
-              className="form-control"
-              ref={emailInputRef}
-            />
-            <label className="form-label" htmlFor="email">
+          <Form.Group as={Col} className="mb-4" style={{ maxWidth: "213px" }}>
+            <Form.Label className="form-label" htmlFor="email">
               Email address
-            </label>
-          </div>
-
-          <div className="form-outline mb-4">
-            <input
-              type="password"
-              id="password"
-              className="form-control"
-              ref={passwordInputRef}
+            </Form.Label>
+            <Form.Control
+              type="email"
+              {...register("email", {
+                required: "email is required",
+                validate: (value) => value.includes("@"),
+              })}
+              isInvalid={Object.keys(errors).includes("email")}
             />
-            <label className="form-label" htmlFor="password">
+            {Object.keys(errors).includes("email") && (
+              <Form.Control.Feedback type="invalid">
+                {errors["email"]["message"]}
+              </Form.Control.Feedback>
+            )}
+            {Object.keys(errors).includes("email") &&
+              errors["email"]["type"] === "validate" && (
+                <Form.Control.Feedback type="invalid">
+                  please enter valid email
+                </Form.Control.Feedback>
+              )}
+          </Form.Group>
+
+          <Form.Group
+            className="form-outline mb-4"
+            style={{ maxWidth: "213px" }}
+          >
+            <Form.Label className="form-label" htmlFor="password">
               Password
-            </label>
-          </div>
-
-          <div className="form-outline mb-4">
-            <input
+            </Form.Label>
+            <Form.Control
               type="password"
-              id="confirmPassword"
-              className="form-control"
-              ref={confirmPasswordInputRef}
+              {...register("password", {
+                required: "password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must have at least 6 characters",
+                },
+              })}
+              isInvalid={Object.keys(errors).includes("password")}
             />
-            <label className="form-label" htmlFor="confirmPassword">
+            {Object.keys(errors).includes("password") && (
+              <Form.Control.Feedback type="invalid">
+                {errors["password"]["message"]}
+              </Form.Control.Feedback>
+            )}
+          </Form.Group>
+
+          <Form.Group
+            className="form-outline mb-4"
+            style={{ maxWidth: "213px" }}
+          >
+            <Form.Label className="form-label" htmlFor="confirmPassword">
               Confirm Password
-            </label>
-          </div>
+            </Form.Label>
+            <Form.Control
+              type="password"
+              {...register("confirmedPassword", {
+                required: "confirmed password is required",
+                validate: (val) => {
+                  if (watch("password") !== val) {
+                    return "Your passwords do no match";
+                  }
+                },
+              })}
+              isInvalid={Object.keys(errors).includes("confirmedPassword")}
+            />
+            {Object.keys(errors).includes("confirmedPassword") && (
+              <Form.Control.Feedback type="invalid">
+                {errors["confirmedPassword"]["message"]}
+              </Form.Control.Feedback>
+            )}
+          </Form.Group>
 
           <button
             disabled={formIsPending}
@@ -97,16 +145,15 @@ function Register() {
           >
             Register
           </button>
-
-          <div className="text-center">
-            <p>
-              Have an account?{" "}
-              <a className={styles.bold} href="/login">
-                Login
-              </a>
-            </p>
-          </div>
-        </form>
+        </Form>
+        <div className="text-center">
+          <p>
+            Have an account?{" "}
+            <a className={styles.bold} href="/login">
+              Login
+            </a>
+          </p>
+        </div>
       </Layout>
     </>
   );

@@ -1,13 +1,11 @@
 .form {
   width: 320px;
+  max-width: 320px;
   margin: 0 auto;
 }
 .form input {
   border-radius: 0;
-}
-.form a {
-  text-decoration: none;
-  color: black !important;
+  width: 100%;
 }
 .form button {
   background-color: black;
@@ -18,6 +16,12 @@
 .form button:hover, .form button:active, .form button:focus, .form button:checked, .form button:disabled {
   background-color: black !important;
 }
-.form .bold {
+
+.bold {
   font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+  color: black !important;
 }/*# sourceMappingURL=styles.module.css.map */

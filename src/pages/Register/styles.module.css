@@ -5,10 +5,6 @@
 .form input {
   border-radius: 0;
 }
-.form a {
-  text-decoration: none;
-  color: black !important;
-}
 .form button {
   background-color: black;
   color: white;
@@ -18,6 +14,12 @@
 .form button:hover, .form button:active, .form button:focus, .form button:checked, .form button:disabled {
   background-color: black !important;
 }
-.form .bold {
+
+a {
+  text-decoration: none;
+  color: black !important;
+}
+
+.bold {
   font-weight: 700;
 }/*# sourceMappingURL=styles.module.css.map */

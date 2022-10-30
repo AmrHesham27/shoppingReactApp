@@ -1,5 +1,5 @@
 // React and components
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Layout from "../../components/layout/Layout/Layout";
 import { useContext } from "react";
 import AppContext from "../../context/app-context";
@@ -8,32 +8,40 @@ import { useNavigate } from "react-router-dom";
 // css
 import styles from "./styles.module.css";
 
+// libraries
+import { useForm } from "react-hook-form";
+
+// bootstarp
+import { Form, Col } from "react-bootstrap";
+
 function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const ctx = useContext(AppContext);
   const navigate = useNavigate();
   const [formIsPending, setFormIsPeding] = useState(false);
 
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const onSubmit = async (data) => {
     setFormIsPeding(true);
     const response = await fetch(`${process.env.REACT_APP_SERVER}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email: emailInputRef.current.value,
-        password: passwordInputRef.current.value,
-      }),
+      body: JSON.stringify(data),
     });
-    const data = await response.json();
+    const reposnseData = await response.json();
 
     if (response.ok) {
-      localStorage.setItem("token", data["data"]["token"]);
-      localStorage.setItem("user", JSON.stringify(data["data"]["user"]));
+      localStorage.setItem("token", reposnseData["data"]["token"]);
+      localStorage.setItem(
+        "user",
+        JSON.stringify(reposnseData["data"]["user"])
+      );
       localStorage.setItem("isLoggedIn", true);
       ctx.setMessage({
         text: "You were loggedIn successfully",
@@ -52,35 +60,48 @@ function Login() {
   return (
     <>
       <Layout>
-        <form
-          onSubmit={handleSubmit}
+        <Form
+          onSubmit={handleSubmit(onSubmit)}
           className={`${styles.form} d-flex flex-column align-items-center justify-content-center`}
         >
           <h4 className="my-4">Login</h4>
 
-          <div className="form-outline mb-4">
-            <input
-              ref={emailInputRef}
+          <Form.Group as={Col} className="mb-4" style={{ maxWidth: "213px" }}>
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
               type="email"
-              id="form2Example1"
-              className="form-control"
+              {...register("email", {
+                required: "email is required",
+                validate: (value) => value.includes("@"),
+              })}
+              isInvalid={Object.keys(errors).includes("email")}
             />
-            <label className="form-label" htmlFor="form2Example1">
-              Email address
-            </label>
-          </div>
+            {Object.keys(errors).includes("email") && (
+              <Form.Control.Feedback type="invalid">
+                {errors["email"]["message"]}
+              </Form.Control.Feedback>
+            )}
+            {Object.keys(errors).includes("email") &&
+              errors["email"]["type"] === "validate" && (
+                <Form.Control.Feedback type="invalid">
+                  please enter valid email
+                </Form.Control.Feedback>
+              )}
+          </Form.Group>
 
-          <div className="form-outline mb-4">
-            <input
-              ref={passwordInputRef}
+          <Form.Group as={Col} className="mb-4" style={{ maxWidth: "213px" }}>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
               type="password"
-              id="form2Example2"
-              className="form-control"
+              {...register("password", { required: "password is required" })}
+              isInvalid={Object.keys(errors).includes("password")}
             />
-            <label className="form-label" htmlFor="form2Example2">
-              Password
-            </label>
-          </div>
+            {Object.keys(errors).includes("password") && (
+              <Form.Control.Feedback type="invalid">
+                {errors["password"]["message"]}
+              </Form.Control.Feedback>
+            )}
+          </Form.Group>
 
           <button
             disabled={formIsPending}
@@ -88,16 +109,15 @@ function Login() {
           >
             Sign in
           </button>
-
-          <div className="text-center">
-            <p>
-              Not a member?{" "}
-              <a className={styles.bold} href="/register">
-                Register
-              </a>
-            </p>
-          </div>
-        </form>
+        </Form>
+        <div className="text-center">
+          <p>
+            Not a member?{" "}
+            <a className={styles.bold} href="/register">
+              Register
+            </a>
+          </p>
+        </div>
       </Layout>
     </>
   );
