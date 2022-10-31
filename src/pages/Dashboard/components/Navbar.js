@@ -2,7 +2,18 @@ import React from "react";
 import styles from "../styles/index.module.css";
 import { Col, Navbar, Offcanvas } from "react-bootstrap";
 
+// font awesome icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBox,
+  faUserCircle,
+  faPencil,
+} from "@fortawesome/free-solid-svg-icons";
+
 function MyNavbar(props) {
+  const currentPage =
+    window.location.href.split("/")[window.location.href.split("/").length - 1];
+
   const handleCloseNavbar = () => {
     const setNavbarIsShown = props.setNavbarIsShown;
     setNavbarIsShown(false);
@@ -29,21 +40,30 @@ function MyNavbar(props) {
             >
               <a
                 href="/dashboard/orders"
-                className={`list-group-item ${styles.link} ${styles.active}`}
+                className={`list-group-item ${styles.link} ${
+                  currentPage === "orders" ? styles.active : ""
+                }`}
               >
-                <i className="bi bi-basket3 me-2"></i>Orders
+                <FontAwesomeIcon icon={faBox} />
+                <span style={{ marginLeft: "15px" }}>Orders</span>
               </a>
               <a
                 href="/dashboard/profile"
-                className={`list-group-item ${styles.link}`}
+                className={`list-group-item ${styles.link} ${
+                  currentPage === "profile" ? styles.active : ""
+                }`}
               >
-                <i className="bi bi-person me-2"></i>Profile
+                <FontAwesomeIcon icon={faUserCircle} />{" "}
+                <span style={{ marginLeft: "10px" }}>Profile</span>
               </a>
               <a
                 href="/dashboard/editProfile"
-                className={`list-group-item ${styles.link}`}
+                className={`list-group-item ${styles.link} ${
+                  currentPage === "editProfile" ? styles.active : ""
+                }`}
               >
-                <i className="bi bi-pencil me-2"></i>Edit Profile
+                <FontAwesomeIcon icon={faPencil} />
+                <span style={{ marginLeft: "15px" }}>Edit Profile</span>
               </a>
             </div>
           </Offcanvas.Body>

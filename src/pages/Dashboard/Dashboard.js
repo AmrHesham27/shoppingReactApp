@@ -10,6 +10,15 @@ function Dashboard() {
 
   const handleShowNavbar = () => setNavbarIsShown(true);
 
+  const currentPage =
+    window.location.href.split("/")[window.location.href.split("/").length - 1];
+
+  const pageTitle = {
+    editProfile: "Edit Profile",
+    profile: "Profile Details",
+    orders: "Orders",
+  };
+
   return (
     <Layout>
       <section className="section-padding">
@@ -23,7 +32,7 @@ function Dashboard() {
         <Container>
           <div className="d-flex align-items-center px-3 py-2 border mb-4">
             <div className="text-start">
-              <h4 className="mb-0 h4 fw-bold">Dashboard</h4>
+              <h4 className="mb-0 h4 fw-bold">{pageTitle[currentPage]}</h4>
             </div>
           </div>
 

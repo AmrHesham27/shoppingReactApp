@@ -24,7 +24,8 @@ const Register = React.lazy(() => import("./pages/Register/Register"));
 const Login = React.lazy(() => import("./pages/Login/Login"));
 const Dashboard = React.lazy(() => import("./pages/Dashboard/Dashboard"));
 const Orders = React.lazy(() => import("./pages/Dashboard/Orders"));
-const Profile = React.lazy(() => import("./pages/Dashboard/Profile/Profile"));
+const Profile = React.lazy(() => import("./pages/Dashboard/Profile"));
+const EditProfile = React.lazy(() => import("./pages/Dashboard/EditProfile"));
 const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
 
 const SpinnerPage = () => {
@@ -142,6 +143,14 @@ function Router() {
               element: (
                 <Suspense fallback={<SpinnerPage />}>
                   <Profile />
+                </Suspense>
+              ),
+            },
+            {
+              path: "editProfile",
+              element: (
+                <Suspense fallback={<SpinnerPage />}>
+                  <EditProfile />
                 </Suspense>
               ),
             },
