@@ -42,7 +42,7 @@ function Login() {
         "user",
         JSON.stringify(reposnseData["data"]["user"])
       );
-      localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("isLoggedIn", "true");
       ctx.setMessage({
         text: "You were loggedIn successfully",
         type: "success",

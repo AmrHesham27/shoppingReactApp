@@ -80,7 +80,7 @@ function Navbar() {
           />
         </div>
 
-        {localStorage.getItem("isLoggedIn") ? (
+        {localStorage.getItem("isLoggedIn") === "true" ? (
           <button className={styles.logoutButton} onClick={logout}>
             Logout
           </button>

@@ -43,19 +43,20 @@ const SpinnerPage = () => {
 
 function Router() {
   const NotLoggedInRoute = () => {
-    if (localStorage.getItem("isLoggedIn")) throw redirect("/dashboard/orders");
+    if (localStorage.getItem("isLoggedIn") === "true")
+      throw redirect("/dashboard/orders");
     return;
   };
 
   const ProtectedRoute = () => {
-    if (!localStorage.getItem("isLoggedIn")) throw redirect("/login");
+    if (localStorage.getItem("isLoggedIn") !== "true") throw redirect("/login");
     return;
   };
 
   const loginUser = async () => {
     const token = localStorage.getItem("token");
     if (token) {
-      const response = fetch(`${process.env.REACT_APP_SERVER}/me`, {
+      const response = await fetch(`${process.env.REACT_APP_SERVER}/me`, {
         method: "GET",
         headers: new Headers({
           Authorization: `${token}`,
