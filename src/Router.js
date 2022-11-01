@@ -64,7 +64,7 @@ function Router() {
       });
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("user", data["data"]);
+        localStorage.setItem("user", JSON.stringify(data["data"]));
         localStorage.setItem("isLoggedIn", true);
       } else {
         localStorage.setItem("user", null);

@@ -6,43 +6,45 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 function Profile() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Col xl={9}>
       <Card className="rounded-0">
         <Card.Body className="p-lg-5">
-          <h5 class="mb-4 fw-bold">Profile Details</h5>
+          <h5 className="mb-4 fw-bold">Profile Details</h5>
           <Table striped>
             <tbody>
               <tr>
                 <td>Full Name</td>
-                <td>Jhon Deo</td>
+                <td>{user.name}</td>
               </tr>
               <tr>
                 <td>Mobile Number</td>
-                <td>+99-85XXXXXXXX</td>
+                <td>{user.phone}</td>
               </tr>
               <tr>
-                <td>Email ID</td>
-                <td>name@example.com</td>
+                <td>Email</td>
+                <td>{user.email}</td>
               </tr>
               <tr>
                 <td>Gender</td>
-                <td>Male</td>
+                <td>{user.gender}</td>
               </tr>
               <tr>
-                <td>DOB</td>
-                <td>10/03/1993</td>
+                <td>Birth date</td>
+                <td>{user.birthDate}</td>
               </tr>
               <tr>
                 <td>Location</td>
-                <td>United Kingdom</td>
+                <td>{user.location}</td>
               </tr>
             </tbody>
           </Table>
-          <div class="">
+          <div className="">
             <button
               type="button"
-              class="btn btn-outline-dark btn-ecomm px-5 rounded-0"
+              className="btn btn-outline-dark btn-ecomm px-5 rounded-0"
             >
               <FontAwesomeIcon icon={faPencil} />{" "}
               <span className="mx-2">Edit</span>
