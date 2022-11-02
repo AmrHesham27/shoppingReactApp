@@ -20,7 +20,6 @@ function Checkout(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ items }),
-        mode: "cors",
       }
     );
 
