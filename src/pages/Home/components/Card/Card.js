@@ -24,6 +24,7 @@ function CustomCard(props) {
         name: product.name,
         price: product.price,
         qty: 1,
+        priceId: product.priceId,
       })
     );
   };

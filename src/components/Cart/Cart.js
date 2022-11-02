@@ -15,6 +15,7 @@ import styles from "./Cart.module.css";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import Checkout from "./Checkout";
 
 function Cart() {
   const ctx = useContext(AppContext);
@@ -56,13 +57,7 @@ function Cart() {
         <div className={styles.body}>{cartItemsElements}</div>
 
         <div className={`${styles.footer}`}>
-          <button
-            type="button"
-            className={`btn btn-lg btn-dark ${styles["btn-ecomm"]} py-3`}
-          >
-            <span className="mx-3">Checkout</span>
-            {totalPrice ? `$${totalPrice}` : undefined}
-          </button>
+          <Checkout totalPrice={totalPrice} cartItemsObject={cartItemsObject} />
         </div>
       </div>
     </Modal>
