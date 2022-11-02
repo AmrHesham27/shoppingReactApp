@@ -4,6 +4,14 @@ import styles from "./Cart.module.css";
 function Checkout(props) {
   const { totalPrice, cartItemsObject } = props;
 
+  console.log(
+    Object.values(cartItemsObject).map((item) => {
+      return {
+        price: item.priceId,
+        quantity: item.qty,
+      };
+    })
+  );
   const redirectToStrapi = async () => {
     const items = Object.values(cartItemsObject).map((item) => {
       return {
