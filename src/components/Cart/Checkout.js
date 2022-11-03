@@ -19,8 +19,6 @@ function Checkout(props) {
       return;
     }
 
-    const user = JSON.parse(localStorage.getItem("user"));
-
     const items = Object.values(cartItemsObject).map((item) => {
       return {
         price: item.priceId,
@@ -32,12 +30,12 @@ function Checkout(props) {
       `${process.env.REACT_APP_SERVER}/create-checkout-session`,
       {
         method: "POST",
-        headers: {
+        headers: new Headers({
+          Authorization: `${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
-        },
+        }),
         body: JSON.stringify({
           items,
-          email: user.email,
         }),
       }
     );
