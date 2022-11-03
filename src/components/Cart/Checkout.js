@@ -1,10 +1,26 @@
 // css
 import styles from "./Cart.module.css";
 
+// context
+import { useContext } from "react";
+import AppContext from "../../context/app-context";
+
 function Checkout(props) {
+  const ctx = useContext(AppContext);
+
   const { totalPrice, cartItemsObject } = props;
 
   const redirectToStrapi = async () => {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      ctx.setMessage({
+        text: "Please login before checkout",
+        type: "error",
+      });
+      return;
+    }
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
     const items = Object.values(cartItemsObject).map((item) => {
       return {
         price: item.priceId,
@@ -19,7 +35,10 @@ function Checkout(props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({
+          items,
+          email: user.email,
+        }),
       }
     );
 
