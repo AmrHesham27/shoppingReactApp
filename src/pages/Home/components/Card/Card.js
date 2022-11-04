@@ -4,12 +4,12 @@ import { faStar, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.css";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../../../redux/cartSlice";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import AppContext from "../../../../context/app-context";
+import useFetchImage from "../../../../Hooks/useFetchImage";
 
 function CustomCard(props) {
   const { product } = props;
-  const [image, setImage] = useState(null);
 
   const ctx = useContext(AppContext);
   const dispatch = useDispatch();
@@ -29,12 +29,7 @@ function CustomCard(props) {
     );
   };
 
-  useEffect(() => {
-    const url = `${process.env.REACT_APP_SERVER}/images/${product["imgId"]}/${product["imgExt"]}`;
-    fetch(url).then((response) => {
-      response.blob().then((blob) => setImage(URL.createObjectURL(blob)));
-    });
-  }, [setImage, product]);
+  const image = useFetchImage(product["imgId"], product["imgExt"]);
 
   return (
     <Card

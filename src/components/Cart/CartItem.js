@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import styles from "./CartItem.module.css";
 import { cartActions } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
+import useFetchImage from "../../Hooks/useFetchImage";
 
 function CartItem(props) {
   const { product } = props;
@@ -22,13 +22,7 @@ function CartItem(props) {
     dispatch(cartActions.decreaseProductQty({ id: product.id }));
   };
 
-  const [image, setImage] = useState(null);
-  useEffect(() => {
-    const url = `${process.env.REACT_APP_SERVER}/images/${product["imgId"]}/${product["imgExt"]}`;
-    fetch(url).then((response) => {
-      response.blob().then((blob) => setImage(URL.createObjectURL(blob)));
-    });
-  }, [setImage, product]);
+  const image = useFetchImage(product["imgId"], product["imgExt"]);
 
   return (
     <div className="d-flex align-items-center gap-3 p-3">
