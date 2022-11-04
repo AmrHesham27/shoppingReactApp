@@ -20,27 +20,31 @@ function Layout(props) {
   const ctx = useContext(AppContext);
   const dispatch = useDispatch();
 
-  const { items: cartItemsObject, itemsNumber: cartItemsNumber } = useSelector(
-    (state) => state.cart
-  );
+  const {
+    items: cartItemsObject,
+    itemsCount: cartItemsCount,
+    total: cartTotal,
+  } = useSelector((state) => state.cart);
 
   let firstRender = useRef(true);
   const persistCartData = useCallback(() => {
     if (
-      JSON.parse(localStorage.getItem("cartItemsNumber")) &&
-      !cartItemsNumber &&
+      JSON.parse(localStorage.getItem("cartItemsCount")) &&
+      !cartItemsCount &&
       firstRender.current
     ) {
       dispatch(
         cartActions.setCart({
           items: JSON.parse(localStorage.getItem("cartItems")),
-          itemsNumber: JSON.parse(localStorage.getItem("cartItemsNumber")),
+          itemsCount: JSON.parse(localStorage.getItem("cartItemsCount")),
+          total: JSON.parse(localStorage.getItem("cartTotal")),
         })
       );
     }
     localStorage.setItem("cartItems", JSON.stringify(cartItemsObject));
-    localStorage.setItem("cartItemsNumber", JSON.stringify(cartItemsNumber));
-  }, [cartItemsNumber, cartItemsObject, dispatch]);
+    localStorage.setItem("cartItemsCount", JSON.stringify(cartItemsCount));
+    localStorage.setItem("cartTotal", JSON.stringify(cartTotal));
+  }, [cartItemsCount, cartItemsObject, cartTotal, dispatch]);
 
   useEffect(() => {
     persistCartData();

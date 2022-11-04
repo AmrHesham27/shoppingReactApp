@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 
 function Navbar() {
   const navigate = useNavigate();
-  const cartItemsNumber = useSelector((state) => state.cart.itemsNumber);
+  const cartItemsCount = useSelector((state) => state.cart.itemsCount);
   const ctx = useContext(AppContext);
 
   const showNavbar = () => {
@@ -65,9 +65,9 @@ function Navbar() {
       <div className="d-flex">
         <div className={styles.icons}>
           <FontAwesomeIcon icon={faCartShopping} size="lg" onClick={showCart} />
-          {cartItemsNumber !== 0 && (
+          {cartItemsCount !== 0 && (
             <div className={styles.counter} onClick={showCart}>
-              {cartItemsNumber}
+              {cartItemsCount}
             </div>
           )}
         </div>

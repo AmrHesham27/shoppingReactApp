@@ -1,5 +1,5 @@
 // React
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import AppContext from "../../context/app-context";
 
 // redux
@@ -20,31 +20,13 @@ import Checkout from "./Checkout";
 function Cart() {
   const ctx = useContext(AppContext);
 
-  const { items: cartItemsObject, itemsNumber: cartItemsNumber } = useSelector(
+  const { items: cartItemsObject, total: cartTotal } = useSelector(
     (state) => state.cart
   );
-  let totalPrice = 0;
-  if (cartItemsNumber)
-    Object.values(cartItemsObject).forEach(
-      (item) => (totalPrice += item.qty * item.price)
-    );
 
-  const [cartItemsElements, setCartItemsElements] = useState([]);
-
-  const turnItemsToElements = useCallback((cartItemsObject) => {
-    const cartItemsArray = Object.values(cartItemsObject);
-    setCartItemsElements(
-      cartItemsArray.map((product, index) => (
-        <CartItem product={product} key={index} />
-      ))
-    );
-  }, []);
-
-  useEffect(() => {
-    if (cartItemsObject) {
-      turnItemsToElements(cartItemsObject);
-    }
-  }, [cartItemsObject, turnItemsToElements]);
+  const cartItemsElements = Object.values(cartItemsObject).map(
+    (product, index) => <CartItem product={product} key={index} />
+  );
 
   return (
     <Modal>
@@ -57,7 +39,7 @@ function Cart() {
         <div className={styles.body}>{cartItemsElements}</div>
 
         <div className={`${styles.footer}`}>
-          <Checkout totalPrice={totalPrice} cartItemsObject={cartItemsObject} />
+          <Checkout totalPrice={cartTotal} cartItemsObject={cartItemsObject} />
         </div>
       </div>
     </Modal>

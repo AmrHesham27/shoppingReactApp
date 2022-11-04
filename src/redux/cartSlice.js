@@ -3,38 +3,52 @@ import { createSlice } from "@reduxjs/toolkit";
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    itemsNumber: 0,
+    itemsCount: 0,
     items: {},
+    total: 0,
   },
   reducers: {
     addProduct: (state, action) => {
-      if (!state.items[action.payload.id]) {
-        state.itemsNumber++;
-        state.items[action.payload["id"]] = action.payload;
+      let product = action.payload;
+
+      if (!state.items[product.id]) {
+        state.itemsCount++;
+        state.items[product["id"]] = product;
+        state.total += product["price"];
       }
     },
     removeProduct: (state, action) => {
-      if (state.items[action.payload.id]) {
-        state.itemsNumber =
-          state.itemsNumber - state.items[action.payload.id]["qty"];
-        delete state.items[action.payload.id];
+      let productId = action.payload;
+
+      if (state.items[productId]) {
+        state.itemsCount = state.itemsCount - state.items[productId]["qty"];
+        delete state.items[productId];
+        state.total -=
+          state.items[productId]["qty"] * state.items[productId]["price"];
       }
     },
     decreaseProductQty: (state, action) => {
-      if (state.items[action.payload.id].qty === 1) {
-        delete state.items[action.payload.id];
+      let productId = action.payload;
+
+      if (state.items[productId].qty === 1) {
+        delete state.items[productId];
       } else {
-        state.items[action.payload.id].qty--;
+        state.items[productId].qty--;
       }
-      state.itemsNumber--;
+      state.itemsCount--;
+      state.total -= state["items"][productId]["price"];
     },
     increaseProductQty: (state, action) => {
-      state.items[action.payload.id].qty++;
-      state.itemsNumber++;
+      let productId = action.payload;
+
+      state.items[productId].qty++;
+      state.itemsCount++;
+      state.total += state["items"][productId]["price"];
     },
     setCart: (state, action) => {
-      state.itemsNumber = action.payload["itemsNumber"];
+      state.itemsCount = action.payload["itemsCount"];
       state.items = action.payload["items"];
+      state.total = action.payload["total"];
     },
   },
 });

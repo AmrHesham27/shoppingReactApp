@@ -11,15 +11,15 @@ function CartItem(props) {
   const dispatch = useDispatch();
 
   const handleDeleteProduct = () => {
-    dispatch(cartActions.removeProduct({ id: product.id }));
+    dispatch(cartActions.removeProduct(product.id));
   };
 
   const handleIncreaseProductQty = () => {
-    dispatch(cartActions.increaseProductQty({ id: product.id }));
+    dispatch(cartActions.increaseProductQty(product.id));
   };
 
   const handleDecreaseProductQty = () => {
-    dispatch(cartActions.decreaseProductQty({ id: product.id }));
+    dispatch(cartActions.decreaseProductQty(product.id));
   };
 
   const image = useFetchImage(product["imgId"], product["imgExt"]);
