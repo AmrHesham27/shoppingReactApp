@@ -16,11 +16,15 @@ function OrdersPage() {
   });
 
   let ordersElements = [];
-  orders.forEach((order) => {
+  orders.forEach((order, index) => {
     let products = [];
     Object.values(order["products"]).forEach((product) => {
       products.push(
-        <OrderItem product={product["data"]} qty={product["quantity"]} />
+        <OrderItem
+          product={product["data"]}
+          qty={product["quantity"]}
+          key={product["data"]["priceId"]}
+        />
       );
     });
     ordersElements.push(
@@ -28,6 +32,7 @@ function OrdersPage() {
         products={products}
         totalAmount={order.totalAmount / 100}
         createdAt={order.createdAt}
+        key={index}
       />
     );
   });
