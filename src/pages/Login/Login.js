@@ -43,11 +43,14 @@ function Login() {
         JSON.stringify(reposnseData["data"]["user"])
       );
       localStorage.setItem("isLoggedIn", "true");
-      ctx.setMessage({
-        text: "You were loggedIn successfully",
-        type: "success",
+      return navigate("/dashboard/orders", {
+        state: {
+          flashMessage: {
+            type: "success",
+            text: "you were loggedIn successfully",
+          },
+        },
       });
-      return navigate("/dashboard/orders");
     } else {
       ctx.setMessage({
         text: "Your credientials are wrong",

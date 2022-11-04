@@ -39,11 +39,14 @@ function Register() {
       body: JSON.stringify(data),
     });
     if (response.ok) {
-      ctx.setMessage({
-        text: "You were registered successfully",
-        type: "success",
+      return navigate("/login", {
+        state: {
+          flashMessage: {
+            type: "success",
+            text: "You were registered successfully",
+          },
+        },
       });
-      return navigate("/login");
     } else {
       ctx.setMessage({
         text: "Error happened, try again",
