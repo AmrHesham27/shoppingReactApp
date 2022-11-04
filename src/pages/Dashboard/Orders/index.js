@@ -1,53 +1,49 @@
 import React from "react";
 import SearchOrders from "./SearchOrders";
 import OrderItem from "./OrderItem";
-import image1 from "../../../assets/images/FaeturedProducts/01.webp";
 import { defer, useLoaderData } from "react-router-dom";
+import OneOrder from "./oneOrder";
 
 function OrdersPage() {
   const { data } = useLoaderData();
-  console.log(data);
 
-  /* const orders = [
-    {
-      qty: 1,
-      img: image1,
-      name: "red dress",
-      desc1: "Women Pink",
-      desc2: "White Printed Straight Kurta",
-      id: 1,
-    },
-    {
-      qty: 1,
-      img: image1,
-      name: "red dress",
-      desc1: "Women Pink",
-      desc2: "White Printed Straight Kurta",
-      id: 2,
-    },
-    {
-      qty: 1,
-      img: image1,
-      name: "red dress",
-      desc1: "Women Pink",
-      desc2: "White Printed Straight Kurta",
-      id: 3,
-    },
-  ].map((order) => (
-    <OrderItem
-      name={order.name}
-      qty={order.qty}
-      img={order.img}
-      desc1={order.desc1}
-      desc2={order.desc2}
-      key={order.id}
-    />
-  )); */
+  const orders = data["data"].map((order) => {
+    return {
+      createdAt: order.createdAt,
+      products: JSON.parse(order.products),
+      totalAmount: order.totalAmount,
+    };
+  });
+
+  let ordersElements = [];
+  orders.forEach((order) => {
+    let products = [];
+    Object.values(order["products"]).forEach((product) => {
+      products.push(
+        <OrderItem product={product["data"]} qty={product["quantity"]} />
+      );
+    });
+    ordersElements.push(
+      <OneOrder
+        products={products}
+        totalAmount={order.totalAmount / 100}
+        createdAt={order.createdAt}
+      />
+    );
+  });
+
+  const emptyListMessage = !ordersElements.length && (
+    <>
+      <h5>You have no orders yet.</h5>
+      <p>start shopping now</p>
+    </>
+  );
 
   return (
     <>
       <SearchOrders />
-      {/* {orders} */}
+      {emptyListMessage}
+      {ordersElements}
     </>
   );
 }
