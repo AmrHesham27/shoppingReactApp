@@ -37,3 +37,51 @@
     display: none;
   }
 }
+
+.animationY {
+  animation-name: slideY;
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  transform: translateY(2.4rem);
+}
+
+@keyframes slideY {
+  25% {
+    transform: translateY(1.8rem);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(0.6rem);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(0.3rem);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.image {
+  animation: image 0.4s;
+  animation-fill-mode: forwards;
+  transform: translateX(-2.4rem);
+}
+
+@keyframes image {
+  25% {
+    transform: translateX(-1.8rem);
+  }
+  50% {
+    transform: translateX(-1.2rem);
+  }
+  75% {
+    transform: translateX(-0.3rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

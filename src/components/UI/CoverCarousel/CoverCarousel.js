@@ -6,7 +6,7 @@ function CoverCarousel(props) {
     <Carousel.Item bsPrefix={`carousel-item ${styles[item.bg]}`} key={key}>
       <div className="d-flex flex-row align-items-center">
         <div className={`col ${styles.captionContainer} ${styles.hide}`}>
-          <div>
+          <div className={styles.animationY}>
             <h3 className="h3 fw-light text-white fw-bold">{item.h3}</h3>
             <h1 className="h1 text-white fw-bold">{item.h1}</h1>
             <p className="text-white fw-bold">
@@ -18,7 +18,11 @@ function CoverCarousel(props) {
           </div>
         </div>
         <div className="col">
-          <img className="img-fluid" src={item.img} alt="First slide" />
+          <img
+            className={`img-fluid ${styles.image}`}
+            src={item.img}
+            alt="First slide"
+          />
         </div>
       </div>
     </Carousel.Item>

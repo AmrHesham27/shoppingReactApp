@@ -36,4 +36,89 @@
   .hide {
     display: none;
   }
+}
+.animationY {
+  -webkit-animation-name: slideY;
+          animation-name: slideY;
+  -webkit-animation-duration: 0.6s;
+          animation-duration: 0.6s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  opacity: 0;
+  transform: translateY(2.4rem);
+}
+
+@-webkit-keyframes slideY {
+  25% {
+    transform: translateY(1.8rem);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(0.6rem);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(0.3rem);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideY {
+  25% {
+    transform: translateY(1.8rem);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(0.6rem);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(0.3rem);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.image {
+  -webkit-animation: image 0.4s;
+          animation: image 0.4s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  transform: translateX(-2.4rem);
+}
+
+@-webkit-keyframes image {
+  25% {
+    transform: translateX(-1.8rem);
+  }
+  50% {
+    transform: translateX(-1.2rem);
+  }
+  75% {
+    transform: translateX(-0.3rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes image {
+  25% {
+    transform: translateX(-1.8rem);
+  }
+  50% {
+    transform: translateX(-1.2rem);
+  }
+  75% {
+    transform: translateX(-0.3rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }/*# sourceMappingURL=CoverCarousel.module.css.map */
