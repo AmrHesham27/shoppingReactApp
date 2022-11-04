@@ -14,9 +14,10 @@ import Spinner from "react-bootstrap/Spinner";
 
 // loaders
 import { getHomeData } from "./pages/Home/Home";
-import App from "./App";
+import { getOrdersData } from "./pages/Dashboard/Orders";
 
 // pages
+import App from "./App";
 const Home = React.lazy(() => import("./pages/Home/Home"));
 const About = React.lazy(() => import("./pages/About/About"));
 const ContactUs = React.lazy(() => import("./pages/ContactUs/ContactUs"));
@@ -76,7 +77,11 @@ function Router() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <App />,
+      element: (
+        <Suspense fallback={<SpinnerPage />}>
+          <App />
+        </Suspense>
+      ),
       loader: loginUser,
       children: [
         {
@@ -138,6 +143,20 @@ function Router() {
                   <Orders />
                 </Suspense>
               ),
+              loader: () => getOrdersData(1),
+              children: [
+                {
+                  path: ":page",
+                  element: (
+                    <Suspense fallback={<SpinnerPage />}>
+                      <Orders />
+                    </Suspense>
+                  ),
+                  loader: ({ params }) => {
+                    getOrdersData(params.page);
+                  },
+                },
+              ],
             },
             {
               path: "profile",

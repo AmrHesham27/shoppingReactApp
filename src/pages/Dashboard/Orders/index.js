@@ -2,9 +2,13 @@ import React from "react";
 import SearchOrders from "./SearchOrders";
 import OrderItem from "./OrderItem";
 import image1 from "../../../assets/images/FaeturedProducts/01.webp";
+import { defer, useLoaderData } from "react-router-dom";
 
 function OrdersPage() {
-  const orders = [
+  const { data } = useLoaderData();
+  console.log(data);
+
+  /* const orders = [
     {
       qty: 1,
       img: image1,
@@ -38,14 +42,31 @@ function OrdersPage() {
       desc2={order.desc2}
       key={order.id}
     />
-  ));
+  )); */
 
   return (
     <>
       <SearchOrders />
-      {orders}
+      {/* {orders} */}
     </>
   );
 }
 
 export default OrdersPage;
+
+export const getOrdersData = async (page) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER}/ordersData/${page}`,
+    {
+      headers: new Headers({
+        Authorization: `${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      }),
+    }
+  );
+  if (response.ok) {
+    const responseData = await response.json();
+    let data = responseData["data"];
+    return defer({ data });
+  }
+};
