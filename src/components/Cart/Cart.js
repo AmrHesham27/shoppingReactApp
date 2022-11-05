@@ -18,7 +18,7 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import Checkout from "./Checkout";
 
 function Cart() {
-  const ctx = useContext(AppContext);
+  const { hideCart } = useContext(AppContext);
 
   const { items: cartItemsObject, total: cartTotal } = useSelector(
     (state) => state.cart
@@ -29,15 +29,15 @@ function Cart() {
   );
 
   useEffect(() => {
-    if (!cartItemsElements.length) ctx.hideCart();
-  }, [cartItemsElements]);
+    if (!cartItemsElements.length) hideCart();
+  }, [cartItemsElements, hideCart]);
 
   return (
     <Modal>
       <div className={styles.overlay}>
         <div className={styles.header}>
           <h4 className="mb-0 fw-bold">Your Cart</h4>
-          <FontAwesomeIcon icon={faClose} size={"2x"} onClick={ctx.hideCart} />
+          <FontAwesomeIcon icon={faClose} size={"2x"} onClick={hideCart} />
         </div>
 
         <div className={styles.body}>{cartItemsElements}</div>
