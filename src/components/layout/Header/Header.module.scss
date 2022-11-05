@@ -93,6 +93,7 @@ header {
       align-items: center;
       top: -10px;
       left: 80%;
+      font-size: 14px;
     }
   }
 
@@ -111,6 +112,9 @@ header {
   nav > ul,
   header img {
     display: none !important;
+  }
+  .icons {
+    margin-left: 5vw;
   }
 }
 

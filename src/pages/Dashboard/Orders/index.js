@@ -6,6 +6,8 @@ import OneOrder from "./oneOrder";
 import Pagination from "./Pagination";
 
 function OrdersPage() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
   const { data } = useLoaderData();
 
   const orders = data["data"].map((order) => {
@@ -51,6 +53,7 @@ function OrdersPage() {
       <Pagination pagesCount={data["pagesNumber"]} />
       {emptyListMessage}
       {ordersElements}
+      <Pagination pagesCount={data["pagesNumber"]} />
     </>
   );
 }

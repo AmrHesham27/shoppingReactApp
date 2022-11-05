@@ -11,10 +11,10 @@ function OneOrder(props) {
           <div className="d-flex flex-column ">{products}</div>
           <div className="d-none d-xl-block vr"></div>
           <div className="d-flex justify-content-center align-items-center">
-            <button type="button" className="btn btn-sm border rounded-0">
+            <button type="button" className="btn border rounded-0">
               Amount : ${totalAmount}
             </button>
-            <button type="button" className="btn btn-sm border rounded-0">
+            <button type="button" className="btn border rounded-0">
               Time : {date.toLocaleDateString("en-US")}
             </button>
           </div>
