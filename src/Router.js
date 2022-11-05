@@ -13,7 +13,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Spinner from "react-bootstrap/Spinner";
 
 // loaders
-import { getHomeData } from "./pages/Home/Home";
 import { getOrdersData } from "./pages/Dashboard/Orders";
 
 // pages
@@ -91,7 +90,6 @@ function Router() {
               <Home />
             </Suspense>
           ),
-          loader: getHomeData,
         },
         {
           path: "about",

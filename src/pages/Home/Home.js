@@ -1,32 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout/Layout";
 import HeroCarousel from "./components/HeroCarousel/HeroCarousel";
 import CardsCarousel from "./components/CardsCarousel/CardsCarousel";
 import Subscripe from "./components/Subscripe/Subscripe";
-import { useLoaderData, Await, defer } from "react-router-dom";
 
 function Home() {
-  const { products } = useLoaderData();
+  const [products, setProducts] = useState([]);
+
+  useEffect(async () => {
+    const response = await fetch(`${process.env.REACT_APP_SERVER}/products`);
+    const data = await response.json();
+    if (response.ok) setProducts(data["data"]);
+  }, []);
+
   return (
-    <>
-      <Await resolve={products}>
-        {(products) => (
-          <Layout>
-            <HeroCarousel />
-            <CardsCarousel products={products} />
-            <Subscripe />
-          </Layout>
-        )}
-      </Await>
-    </>
+    <Layout>
+      <HeroCarousel />
+      <CardsCarousel products={products} />
+      <Subscripe />
+    </Layout>
   );
 }
 
 export default Home;
-
-export const getHomeData = async () => {
-  const response = await fetch(`${process.env.REACT_APP_SERVER}/products`);
-  const data = await response.json();
-  let products = data["data"];
-  return defer({ products });
-};
