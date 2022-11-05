@@ -43,7 +43,7 @@ function Login() {
         JSON.stringify(reposnseData["data"]["user"])
       );
       localStorage.setItem("isLoggedIn", "true");
-      return navigate("/dashboard/orders", {
+      return navigate("/dashboard/orders/1", {
         state: {
           flashMessage: {
             type: "success",

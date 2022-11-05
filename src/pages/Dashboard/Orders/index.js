@@ -3,6 +3,7 @@ import SearchOrders from "./SearchOrders";
 import OrderItem from "./OrderItem";
 import { defer, useLoaderData } from "react-router-dom";
 import OneOrder from "./oneOrder";
+import Pagination from "./Pagination";
 
 function OrdersPage() {
   const { data } = useLoaderData();
@@ -47,6 +48,7 @@ function OrdersPage() {
   return (
     <>
       <SearchOrders />
+      <Pagination pagesCount={data["pagesNumber"]} />
       {emptyListMessage}
       {ordersElements}
     </>
@@ -65,9 +67,7 @@ export const getOrdersData = async (page) => {
       }),
     }
   );
-  if (response.ok) {
-    const responseData = await response.json();
-    let data = responseData["data"];
-    return defer({ data });
-  }
+  const responseData = await response.json();
+  let data = responseData["data"];
+  return defer({ data });
 };

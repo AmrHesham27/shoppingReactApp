@@ -45,7 +45,7 @@ const SpinnerPage = () => {
 function Router() {
   const NotLoggedInRoute = () => {
     if (localStorage.getItem("isLoggedIn") === "true")
-      throw redirect("/dashboard/orders");
+      throw redirect("/dashboard/orders/1");
     return;
   };
 
@@ -137,26 +137,13 @@ function Router() {
           loader: ProtectedRoute,
           children: [
             {
-              path: "orders",
+              path: "orders/:page",
               element: (
                 <Suspense fallback={<SpinnerPage />}>
                   <Orders />
                 </Suspense>
               ),
-              loader: () => getOrdersData(1),
-              children: [
-                {
-                  path: ":page",
-                  element: (
-                    <Suspense fallback={<SpinnerPage />}>
-                      <Orders />
-                    </Suspense>
-                  ),
-                  loader: ({ params }) => {
-                    getOrdersData(params.page);
-                  },
-                },
-              ],
+              loader: ({ params }) => getOrdersData(params.page),
             },
             {
               path: "profile",
