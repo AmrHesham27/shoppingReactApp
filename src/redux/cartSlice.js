@@ -22,13 +22,15 @@ export const cartSlice = createSlice({
 
       if (state.items[productId]) {
         state.itemsCount = state.itemsCount - state.items[productId]["qty"];
-        delete state.items[productId];
         state.total -=
           state.items[productId]["qty"] * state.items[productId]["price"];
+        delete state.items[productId];
       }
     },
     decreaseProductQty: (state, action) => {
       let productId = action.payload;
+
+      state.total -= state["items"][productId]["price"];
 
       if (state.items[productId].qty === 1) {
         delete state.items[productId];
@@ -36,7 +38,6 @@ export const cartSlice = createSlice({
         state.items[productId].qty--;
       }
       state.itemsCount--;
-      state.total -= state["items"][productId]["price"];
     },
     increaseProductQty: (state, action) => {
       let productId = action.payload;
