@@ -39,7 +39,7 @@ function MyNavbar(props) {
               className={`list-group w-100 rounded-0 ${styles["nav-links"]}`}
             >
               <a
-                href="/dashboard/orders"
+                href="/dashboard/orders/1"
                 className={`list-group-item ${styles.link} ${
                   currentPage === "orders" ? styles.active : ""
                 }`}
