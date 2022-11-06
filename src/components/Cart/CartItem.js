@@ -52,7 +52,11 @@ function CartItem(props) {
         </button>
       </div>
       <div className="ms-auto fs-5">
-        <FontAwesomeIcon icon={faTrash} onClick={handleDeleteProduct} />
+        <FontAwesomeIcon
+          data-testid="trash"
+          icon={faTrash}
+          onClick={handleDeleteProduct}
+        />
       </div>
     </div>
   );

@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Cart Test Cart Item can add product quantity 1`] = `
+Array [
+  <div
+    className="backdrop"
+    onClick={[Function]}
+  />,
+  <div
+    className="overlay"
+  >
+    <div
+      className="header"
+    >
+      <h4
+        className="mb-0 fw-bold"
+      >
+        Your Cart
+      </h4>
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-xmark fa-2x "
+        data-icon="xmark"
+        data-prefix="fas"
+        focusable="false"
+        onClick={[Function]}
+        role="img"
+        style={Object {}}
+        viewBox="0 0 320 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="body"
+    />
+    <div
+      className="footer"
+    >
+      <button
+        className="btn btn-lg btn-dark btn-ecomm py-3"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="mx-3"
+        >
+          Checkout
+        </span>
+      </button>
+    </div>
+  </div>,
+]
+`;
