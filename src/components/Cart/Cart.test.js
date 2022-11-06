@@ -1,7 +1,6 @@
 // libraries and redux
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import renderer from "react-test-renderer";
 
 // components
 import CartItem from "./CartItem";
