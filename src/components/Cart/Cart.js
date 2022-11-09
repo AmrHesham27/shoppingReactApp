@@ -1,5 +1,5 @@
 // React
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import AppContext from "../../context/app-context";
 
 // redux
@@ -27,10 +27,6 @@ function Cart() {
   const cartItemsElements = Object.values(cartItemsObject).map(
     (product, index) => <CartItem product={product} key={index} />
   );
-
-  useEffect(() => {
-    if (!cartItemsElements.length) hideCart();
-  }, [cartItemsElements, hideCart]);
 
   return (
     <Modal>
