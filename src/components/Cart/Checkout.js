@@ -26,8 +26,6 @@ function Checkout(props) {
       };
     });
 
-    console.log(items);
-
     const response = await fetch(
       `${process.env.REACT_APP_SERVER}/create-checkout-session`,
       {
