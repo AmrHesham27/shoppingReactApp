@@ -56,10 +56,12 @@ function Router() {
   const loginUser = async () => {
     const token = localStorage.getItem("token");
     if (token) {
-      const response = await fetch(`${process.env.REACT_APP_SERVER}/me`, {
+      const response = await fetch(`${process.env.REACT_APP_SERVER}/user`, {
         method: "GET",
         headers: new Headers({
-          Authorization: `${token}`,
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         }),
       });
       if (response.ok) {

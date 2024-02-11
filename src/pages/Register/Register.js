@@ -66,6 +66,23 @@ function Register() {
           <h4 className="my-4">Register</h4>
 
           <Form.Group as={Col} className="mb-4" style={{ maxWidth: "213px" }}>
+            <Form.Label className="form-label" htmlFor="name">
+              Name
+            </Form.Label>
+            <Form.Control
+              {...register("name", {
+                required: "Name is required",
+              })}
+              isInvalid={Object.keys(errors).includes("name")}
+            />
+            {Object.keys(errors).includes("name") && (
+              <Form.Control.Feedback type="invalid">
+                {errors["name"]["message"]}
+              </Form.Control.Feedback>
+            )}
+          </Form.Group>
+
+          <Form.Group as={Col} className="mb-4" style={{ maxWidth: "213px" }}>
             <Form.Label className="form-label" htmlFor="email">
               Email address
             </Form.Label>
@@ -124,7 +141,7 @@ function Register() {
             </Form.Label>
             <Form.Control
               type="password"
-              {...register("confirmedPassword", {
+              {...register("password_confirmation", {
                 required: "confirmed password is required",
                 validate: (val) => {
                   if (watch("password") !== val) {
@@ -132,11 +149,11 @@ function Register() {
                   }
                 },
               })}
-              isInvalid={Object.keys(errors).includes("confirmedPassword")}
+              isInvalid={Object.keys(errors).includes("password_confirmation")}
             />
-            {Object.keys(errors).includes("confirmedPassword") && (
+            {Object.keys(errors).includes("password_confirmation") && (
               <Form.Control.Feedback type="invalid">
-                {errors["confirmedPassword"]["message"]}
+                {errors["password_confirmation"]["message"]}
               </Form.Control.Feedback>
             )}
           </Form.Group>
