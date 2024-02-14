@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../../../../redux/cartSlice";
 import { useContext } from "react";
 import AppContext from "../../../../context/app-context";
-import useFetchImage from "../../../../Hooks/useFetchImage";
 
 function CustomCard(props) {
   const { product } = props;
@@ -29,15 +28,13 @@ function CustomCard(props) {
     );
   };
 
-  const image = useFetchImage(product["imgId"], product["imgExt"]);
-
   return (
     <Card
       style={{ width: "18rem", fontWeight: "bold" }}
       className={styles.myCard}
     >
       <div className={styles.imgContainer}>
-        {image && <Card.Img variant="top" src={image} />}
+        <Card.Img variant="top" src={product.image} />
         <div className={styles.productOptions}>
           <button onClick={handleClickCart}>
             <FontAwesomeIcon icon={faCartShopping} />

@@ -3,7 +3,6 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import styles from "./CartItem.module.css";
 import { cartActions } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
-import useFetchImage from "../../Hooks/useFetchImage";
 
 function CartItem(props) {
   const { product } = props;
@@ -22,12 +21,10 @@ function CartItem(props) {
     dispatch(cartActions.decreaseProductQty(product.id));
   };
 
-  const image = useFetchImage(product["imgId"], product["imgExt"]);
-
   return (
     <div className="d-flex align-items-center gap-3 p-3">
       <div className="bottom-product-img">
-        <img src={image} width="70" alt="product" />
+        <img src={product.image} width="70" alt="product" />
       </div>
       <div>
         <h6 className="mb-0 fw-light mb-1">{product.name}</h6>

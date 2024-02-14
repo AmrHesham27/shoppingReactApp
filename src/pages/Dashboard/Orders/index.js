@@ -62,7 +62,7 @@ export default OrdersPage;
 
 export const getOrdersData = async (page) => {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER}/ordersData/${page}`,
+    `${process.env.REACT_APP_SERVER}/orders?page=${page}`,
     {
       headers: new Headers({
         Authorization: `${localStorage.getItem("token")}`,

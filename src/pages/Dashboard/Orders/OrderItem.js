@@ -1,23 +1,15 @@
 import { Card } from "react-bootstrap";
-import { useState, useEffect } from "react";
 
 function OrderItem(props) {
   const { product, qty } = props;
-  const [image, setImage] = useState(null);
-  useEffect(() => {
-    const url = `${process.env.REACT_APP_SERVER}/images/${product["imgId"]}/${product["imgExt"]}`;
-    fetch(url).then((response) => {
-      response.blob().then((blob) => setImage(URL.createObjectURL(blob)));
-    });
-  }, [setImage, product]);
-
+  
   return (
     <Card className="border-0 rounded-0 mb-3">
       <Card.Body>
         <div className="d-flex flex-column flex-xl-row gap-3">
           <div>
             <Card.Img
-              src={image}
+              src={product.image}
               style={{ width: "120px" }}
               alt=""
               className="rounded-0"
@@ -27,7 +19,7 @@ function OrderItem(props) {
             <h5 className="fw-bold mb-1">{product.name}</h5>
             <p className="mb-0">
               {" "}
-              {product.desc1} &amp; {product.desc2}
+              {product.description} &amp; {product.detailed_description}
             </p>
             <div className="mt-3 hstack gap-2">
               {/* <button type="button" className="btn btn-sm border rounded-0">
